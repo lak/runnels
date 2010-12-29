@@ -1,0 +1,322 @@
+---
+inMenu: true
+---
+
+An IRC discussion of Runnels semantics.
+
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:17:14)</FONT> <B>laen:</B></FONT> I have a dream of having my events be tagged, and having certain programs subscribe to certain tags.   Tags like &quot;availability&quot; would be added my &quot;system startup&quot; &quot;system shutdown&quot; events, and the monitoring system would get them, along with the paging system.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:18:47)</FONT> <B>lkanies:</B></FONT> laen: i was just thinking about the fact that we haven't talked about semantics at all, and semantics are, um, important :)<BR>
+<FONT SIZE="2">(17:19:58)</FONT> <B>fishzle [<I>n=fi@60-241-49-66.tpgi.com.au</I>] entered the room.</B><BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:20:21)</FONT> <B>laen:</B></FONT> Yeah, it was your &quot;definitions&quot; page that reminded me about tagging.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:20:32)</FONT> <B>lkanies:</B></FONT> i like the phrase &quot;runnels bus&quot;<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:21:40)</FONT> <B>lkanies:</B></FONT> <A HREF="https://reductivelabs.com/projects/runnels">https://reductivelabs.com/projects/runnels</A><BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:21:45)</FONT> <B>lkanies:</B></FONT> ok, what do people think?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:21:49)</FONT> <B>lkanies:</B></FONT> i know it can be modified and stuff<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:21:55)</FONT> <B>lkanies:</B></FONT> how's that for a first draught<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:22:12)</FONT> <B>icblenke:</B></FONT> tastes good.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:22:22)</FONT> <B>laen:</B></FONT> less filling.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:22:53)</FONT> <B>lkanies:</B></FONT> :)<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:24:02)</FONT> <B>lkanies:</B></FONT> i've preemptively registered #runnels on freenode<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:24:16)</FONT> <B>lkanies:</B></FONT> so i don't have the problems i'm having with #puppet, where people are already on it and thus i can't register it<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:25:08)</FONT> <B>laen:</B></FONT> Does this: &quot;is that the routers contain the organizational metadata for the system, not the producers or consumers. &quot; mean that you don't see the producers being able to add metadata to the message?  Or just that it won't make any decisions based on that metadata?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:26:28)</FONT> <B>lkanies:</B></FONT> they won't contain metadata related to the flow of messages<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:26:38)</FONT> <B>lkanies:</B></FONT> i.e., i message cannot specify what its destination is<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:27:22)</FONT> <B>laen:</B></FONT> Ahh, okay.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:27:38)</FONT> <B>lkanies:</B></FONT> i'll clarify it<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:28:15)</FONT> <B>laen:</B></FONT> ..But they could add other arbitrary tags, like &quot;sysup&quot; to identify that it's an event related to a system starting up?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:28:37)</FONT> <B>laen:</B></FONT> Oh, there's your section on tags. <BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:28:43)</FONT> <B>laen:</B></FONT> I hadn't seen it yet.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:28:46)</FONT> <B>icblenke:</B></FONT> there is a potential problem there: what happens when a consumer isn't running? are the messages lost?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:29:03)</FONT> <B>laen:</B></FONT> I think they queue up.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:29:11)</FONT> <B>icblenke:</B></FONT> do they?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:29:28)</FONT> <B>lkanies:</B></FONT> ok<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:29:35)</FONT> <B>icblenke:</B></FONT> you might have multiple consumers. how do you know that all of the consumers are there ready to consume the messages you have to deliver?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:29:40)</FONT> <B>laen:</B></FONT> In my head, I'm thinking of kind of a &quot;del.icio.us&quot; model, except with events.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:30:00)</FONT> <B>lkanies:</B></FONT> icblenke: if a consumer has a subscription but is not up, then the messages should queue<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:30:18)</FONT> <B>lkanies:</B></FONT> obviously within reason; we don't want 10^50 messages in the queue or whatever<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:30:26)</FONT> <B>icblenke:</B></FONT> oh, so subscriptions are persistent, even when the consumer isn't &quot;running&quot;<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:30:27)</FONT> <B>lkanies:</B></FONT> laen: to some extent, yeah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:30:29)</FONT> <B>laen:</B></FONT> So, you have producers, sending in events, adding tags.  You have consumers/correlators, that subscribe to events and perhaps generate new events based on that..<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:30:31)</FONT> <B>lkanies:</B></FONT> i would think so<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:30:43)</FONT> <B>icblenke:</B></FONT> laen: right.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:30:49)</FONT> <B>lkanies:</B></FONT> otherwise the router would have to retain a persisten connection to all consumers at all times<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:31:13)</FONT> <B>icblenke:</B></FONT> laen: the consumers subscribe with a pattern that matches messages they're looking to consume.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:31:17)</FONT> <B>laen:</B></FONT> (I'm also kind of thinking of this in the XMPP pub/sub type thing)<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:31:36)</FONT> <B>lkanies:</B></FONT> and there are also things like downstream subscriptions: consumer A is subscribed to all &quot;metric&quot; events and is connected to router A; producer B produces metric events and is connected to router B<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:31:47)</FONT> <B>laen:</B></FONT> icblenke: You think so?  I think there need to be correlators that add the appropriate tags for the consumers to subscribe to.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:31:55)</FONT> <B>lkanies:</B></FONT> router B needs to know about consumer A's subscription so that it forwards things correctly<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:32:08)</FONT> <B>lkanies:</B></FONT> laen: what do you mean?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:32:13)</FONT> <B>icblenke:</B></FONT> laen: your &quot;correlators&quot; are nothing more than consumers/producers themselves.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:32:19)</FONT> <B>laen:</B></FONT> icblenke: True!<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:32:39)</FONT> <B>laen:</B></FONT> They consume packets, add a tag, and stick them back in the queue.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:32:42)</FONT> <B>icblenke:</B></FONT> right!<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:32:51)</FONT> <B>icblenke:</B></FONT> well, re-publish them.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:32:54)</FONT> <B>laen:</B></FONT> Yeah.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:33:14)</FONT> <B>laen:</B></FONT> (Without changing the UUID of the message)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:33:15)</FONT> <B>icblenke:</B></FONT> they can also convert them to other message &quot;types&quot; to be forwarded along to whatever consumer subscribes to that message type<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:33:34)</FONT> <B>lkanies:</B></FONT> please provide an example of a post-producer tag<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:33:35)</FONT> <B>icblenke:</B></FONT> wouldn't that be a different message at that point?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:33:37)</FONT> <B>icblenke:</B></FONT> I'd think so.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:34:04)</FONT> <B>lkanies:</B></FONT> it would result in consumers getting duplicate messages, those with tags and those without<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:34:12)</FONT> <B>icblenke:</B></FONT> I'm already thinking about ways to write this with reliable-msg<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:34:13)</FONT> <B>lkanies:</B></FONT> that is, they'd get the pre- and post-tag messages<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:34:26)</FONT> <B>laen:</B></FONT> Yeah, hrm.. I think messages need a UUID so that doesn't happen.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:34:29)</FONT> <B>lkanies:</B></FONT> why wouldn't the producers just tag the messages?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:34:34)</FONT> <B>laen:</B></FONT> I guess I want a special tagging consumer?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:34:38)</FONT> <B>lkanies:</B></FONT> laen: yeah, definitely; i mention that<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:34:44)</FONT> <B>laen:</B></FONT> Well, because the producer doesn't know everything about the message..<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:34:49)</FONT> <B>laen:</B></FONT> I want other parts of the process to be able to tag..<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:34:57)</FONT> <B>icblenke:</B></FONT> think pipes.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:35:00)</FONT> <B>lkanies:</B></FONT> hmm<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:35:13)</FONT> <B>icblenke:</B></FONT> messages feed into producers and out of consumers in a message pipeline<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:35:32)</FONT> <B>lkanies:</B></FONT> so do we need a way to specify that a message is in a certain point in a pipeline? e.g., &quot;these consumers only get tagged messages, and X consumer tags them&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:35:39)</FONT> <B>laen:</B></FONT> Hrm.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:35:48)</FONT> <B>icblenke:</B></FONT> a filter that adds a tag is just another piece in the pipeline.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:35:54)</FONT> <B>laen:</B></FONT> Yeah, there we go.  A filter.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:35:59)</FONT> <B>lkanies:</B></FONT> we don't really have a pipeline right now, tho<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:36:22)</FONT> <B>icblenke:</B></FONT> each &quot;filter&quot; just marks up the message enough to match the subscribe pattern of the next pipe<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:36:27)</FONT> <B>laen:</B></FONT> A message comes in, goes through some number of filters, and into the router, where subscriptions are processed and the message is distributed in a spoke pattern.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:36:44)</FONT> <B>icblenke:</B></FONT> oh, no, you're missing the idea<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:36:45)</FONT> <B>laen:</B></FONT> (And filters are just regexs that add tags?)<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:36:46)</FONT> <B>lkanies:</B></FONT> so we need the ability to stick filters between producers and routers?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:36:55)</FONT> <B>lkanies:</B></FONT> i don't like that<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:37:03)</FONT> <B>laen:</B></FONT> Yeah, I kinda don't either.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:37:04)</FONT> <B>icblenke:</B></FONT> I say that a filter is just another producer/consumer.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:37:10)</FONT> <B>lkanies:</B></FONT> it implies 1-to-1 filter/producer ratios<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:37:17)</FONT> <B>lkanies:</B></FONT> icblenke: i agree, but i don't see how it would work<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:37:36)</FONT> <B>laen:</B></FONT> (Do other people like the del.icio.us analogy?)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:37:45)</FONT> <B>icblenke:</B></FONT> a &quot;filter&quot; could add tags that allow another subscribe pattern to match and produce a message to that end, continuing the pipeline.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:37:50)</FONT> <B>lkanies:</B></FONT> laen: to some extent, but the uses are so different<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:38:06)</FONT> <B>lkanies:</B></FONT> and delicious hasn't done a great job of really reusing all that metadata, and it requires that users add the data<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:38:09)</FONT> <B>lkanies:</B></FONT> there's no filter there<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:38:15)</FONT> <B>laen:</B></FONT> Producers add data to the system, with some tags, and subsribers subscribe to certain tags..<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:38:21)</FONT> <B>lkanies:</B></FONT> icblenke: but where is the pipeline?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:38:39)</FONT> <B>laen:</B></FONT> People (consumers) read del.icio.us, read a message, and go &quot;oh!&quot; and add some other tags to it.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:38:48)</FONT> <B>laen:</B></FONT> Other people (consumers), subscribe to those tags.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:39:17)</FONT> <B>lkanies:</B></FONT> hrm<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:39:33)</FONT> <B>lkanies:</B></FONT> that's not how *i* use delicious ;)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:39:56)</FONT> <B>icblenke:</B></FONT> the pipeline is how each &quot;filter&quot; adds a tag that allows another subscribe pattern to catch the output<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:39:59)</FONT> <B>lkanies:</B></FONT> i just add my own links and put the tags on there when i add new links<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:40:00)</FONT> <B>laen:</B></FONT> Some people (consumers) just watch everything that comes through, read, and tag.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:40:00)</FONT> <B>laen:</B></FONT> Each event receives a UUID as it enters the system, and gets progressively more tags attached to it.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:40:16)</FONT> <B>icblenke:</B></FONT> &quot;color == white&quot; -&gt; filter( &quot;shape == round&quot;) -&gt; &quot;color == white; shape == round&quot; =&gt; filter(laces == threaded) =&gt; &quot;color == white; shape == round; laces == threaded&quot;<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:40:31)</FONT> <B>lkanies:</B></FONT> icblenke: but what about cases where a consumer catches a message both before and after tags, and it can understand both versions but prefers the extra data?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:40:33)</FONT> <B>icblenke:</B></FONT> get where I'm going?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:40:59)</FONT> <B>icblenke:</B></FONT> what would the router do?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:41:00)</FONT> <B>lkanies:</B></FONT> yeah, but i don't think you get a consistent system that way<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:41:06)</FONT> <B>icblenke:</B></FONT> ah.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:41:09)</FONT> <B>lkanies:</B></FONT> i think the filters have to be inline<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:41:23)</FONT> <B>laen:</B></FONT> Hmm.. Yeah.  I might be off here.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:41:26)</FONT> <B>icblenke:</B></FONT> I don't think so.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:41:32)</FONT> <B>lkanies:</B></FONT> i think the router needs to have filters configured<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:41:35)</FONT> <B>icblenke:</B></FONT> I think you can keep consistency quite well...<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:42:02)</FONT> <B>lkanies:</B></FONT> and with your thing, all filter subscriptions have to specify that they are not interested in already processed messages<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:42:10)</FONT> <B>icblenke:</B></FONT> &quot;step = one&quot; -&gt; filter( &quot;step = 2&quot; ) -&gt; &quot;step = two&quot; -&gt; filter( &quot;step = three&quot; ) =&gt; &quot;step = 3&quot;<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:42:14)</FONT> <B>lkanies:</B></FONT> so the messages need to be marked with what filters processed them<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:42:21)</FONT> <B>icblenke:</B></FONT> well, you get what I mean.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:42:28)</FONT> <B>laen:</B></FONT> Well, they have UUIDs, and a filter would never get the same UUID twice.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:42:43)</FONT> <B>laen:</B></FONT> The router would never deliver the same UUID to the same consumer more than once.<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(17:42:51)</FONT> <B>icblenke:</B></FONT> lkanies: I'm just trying to keep with the publish/subscribe model where the subscriptions are a pattern.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:43:14)</FONT> <B>lkanies:</B></FONT> yeah, i understand and appreciate that, but it just seems like the filters have to be inline<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:43:24)</FONT> <B>lkanies:</B></FONT> or at least that there needs to be a special filter hook in routers<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:43:27)</FONT> <B>icblenke:</B></FONT> keeping the patterns from intersecting might be a problem if you're not careful. things could explode into an infinite recursion.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:43:35)</FONT> <B>lkanies:</B></FONT> yeah, exactly<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:43:40)</FONT> <B>lkanies:</B></FONT> i think filters _must_ be one-time<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:43:50)</FONT> <B>lkanies:</B></FONT> the bus has one opportunity to filter a message<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:44:01)</FONT> <B>lkanies:</B></FONT> anything else is just too bloody complicated, if nothing else<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:44:17)</FONT> <B>lkanies:</B></FONT> and frankly, at this point i think we're talking about implementation<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:44:30)</FONT> <B>icblenke:</B></FONT> well, almost.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:44:36)</FONT> <B>lkanies:</B></FONT> &quot;i use a shitty application that doesn't automatically tag my messages, so i want a filter to do it for me&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:44:38)</FONT> <B>icblenke:</B></FONT> it's still high level here.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:44:56)</FONT> <B>lkanies:</B></FONT> i still think semantic tagging starts with the producers<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:45:01)</FONT> <B>icblenke:</B></FONT> that really sounds like a plugin for that producer.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:45:09)</FONT> <B>icblenke:</B></FONT> that doesn't sound like a function of the bus.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:45:11)</FONT> <B>icblenke:</B></FONT> to be honest.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:45:21)</FONT> <B>laen:</B></FONT> I think so too, but I think a UUID should be able to receive more tags along the way..<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:45:21)</FONT> <B>icblenke:</B></FONT> the bus is about delivery.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:45:24)</FONT> <B>lkanies:</B></FONT> either it's the native application and it much better understands the messages, or it's a special plugin built to understand the message<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:45:38)</FONT> <B>lkanies:</B></FONT> laen: please provide a concrete example of where that would be useful<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:45:39)</FONT> <B>laen:</B></FONT> icblenke: Doesn't that imply distributing a bit more intelligence to the producers?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:45:47)</FONT> <B>lkanies:</B></FONT> i don't think so<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:46:05)</FONT> <B>laen:</B></FONT> Okay, let's see...<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:46:39)</FONT> <B>laen:</B></FONT> I have cluster A and cluster B.  They're both monitored by different nagios hosts.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:47:26)</FONT> <B>laen:</B></FONT> Cluster node A1 sends a message tagged &quot;sysreboot&quot;, indicating that it just booted up. It gets put in the routing database.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:47:27)</FONT> <B>lkanies:</B></FONT> we can come back to it later, but my puppet messages will all have the path to their source (e.g., /solaris/web server/apache/package=apache), and i'd like something like that to be a standard<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:47:45)</FONT> <B>lkanies:</B></FONT> &quot;here's the object that threw the message&quot; and &quot;here's where that object fits into the configuration&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:47:55)</FONT> <B>icblenke:</B></FONT> the bus should be as simple as possible.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:47:56)</FONT> <B>lkanies:</B></FONT> kind of like an ability to provide a URI to get back to the message source<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:48:02)</FONT> <B>lkanies:</B></FONT> i definitely agree with that<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:48:05)</FONT> <B>laen:</B></FONT> I then have a producer that reads all &quot;sysreboot&quot; messages, and tags them with &quot;clustera&quot; or &quot;clusterb&quot;.  My nagios server subscribes to &quot;clustera&quot;+&quot;sysreboot&quot;.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:48:22)</FONT> <B>lkanies:</B></FONT> laen: if your clusters don't know that they're clusters, um, you're fired :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:48:49)</FONT> <B>laen:</B></FONT> My reboot script doesn't know that.  All it knows is that the system was rebooted.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:48:59)</FONT> <B>lkanies:</B></FONT> the whole point of semantic labelling is that you've already explained all this crap to your computers or they wouldn't work<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:49:55)</FONT> <B>lkanies:</B></FONT> what reboot script? the one that initiated the reboot, or the one that got called upon reboot and produced the event, or the one that converted the event to a message?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:50:20)</FONT> <B>icblenke:</B></FONT> the latter. the producer. that's where you would tag, I would think.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:50:23)</FONT> <B>laen:</B></FONT> The one that got called upon reboot and produced the event.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:50:30)</FONT> <B>laen:</B></FONT> Hmm, okay.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:50:38)</FONT> <B>lkanies:</B></FONT> i think this is where something like facter would come in: you've got a bunch of tags you want to associate with all outgoing messages; facter could be used to collect those tags<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:50:47)</FONT> <B>laen:</B></FONT> Ahh! True.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:51:00)</FONT> <B>icblenke:</B></FONT> interesting.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:51:02)</FONT> <B>lkanies:</B></FONT> just teach facter how to figure out what the cluster name, and you're done<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:51:09)</FONT> <B>lkanies:</B></FONT> cluster name, cluster type, etc.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:51:39)</FONT> <B>lkanies:</B></FONT> and teach puppet about the functions that the cluster provides, and suddenly you've got tons of semantic labelling<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:52:17)</FONT> <B>laen:</B></FONT> Hmm.. So in that world, the host knows everything about itself?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:52:26)</FONT> <B>lkanies:</B></FONT> yep; craziness, huh?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:52:28)</FONT> <B>lkanies:</B></FONT> :)<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:53:09)</FONT> <B>lkanies:</B></FONT> this is the whole point: build simple self-aware systems that share as much semantic information as they can and then allow other systems to pick out what they want based on that semantic data<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:53:53)</FONT> <B>lkanies:</B></FONT> you could define service levels on your network and have a special consumer that automatically pages people when any error messages come from hosts in the highest service levels<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:53:58)</FONT> <B>lkanies:</B></FONT> it would be silly, but you could do it :)<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:54:15)</FONT> <B>lkanies:</B></FONT> but the hosts should know their own service levels<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:56:03)</FONT> <B>lkanies:</B></FONT> ...no response to that?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:56:35)</FONT> <B>laen:</B></FONT> (Sorry, people in my cubicle)<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:56:50)</FONT> <B>lkanies:</B></FONT> ah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:57:11)</FONT> <B>fishzle:</B></FONT> consumers know the service levels<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:57:15)</FONT> <B>fishzle:</B></FONT> not providers<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:57:43)</FONT> <B>lkanies:</B></FONT> how would the consumers know?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:57:50)</FONT> <B>lkanies:</B></FONT> you would have to explain it to them<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:57:56)</FONT> <B>fishzle:</B></FONT> how would the providers know?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:58:01)</FONT> <B>lkanies:</B></FONT> but you've already explained it to the individual hosts, when you configured them<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:58:12)</FONT> <B>fishzle:</B></FONT> not the service levels<BR>
+<FONT SIZE="2">(17:58:13)</FONT> <B>mattimustang left the room (quit: &quot;Trillian (http://www.ceruleanstudios.com&quot;).</B><BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:58:33)</FONT> <B>laen:</B></FONT> What do you mean by &quot;service levels&quot; ?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:58:34)</FONT> <B>lkanies:</B></FONT> puppet will produce configurations that vary based on service levels (prod, test, dev, etc.), so it will already have to know the service level<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:58:43)</FONT> <B>laen:</B></FONT> Oh, I see.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:58:52)</FONT> <B>fishzle:</B></FONT> aah, I thought we were talking about the paging<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:58:58)</FONT> <B>lkanies:</B></FONT> or anything else you want: operating system, ip address, lan segment, data center<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(17:59:03)</FONT> <B>lkanies:</B></FONT> fishzle: i was mostly being silly there<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:59:08)</FONT> <B>laen:</B></FONT> If the host knows that it's QA, is it really QA?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:59:19)</FONT> <B>laen:</B></FONT> (Since that's a difference between QA and production)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:59:25)</FONT> <B>icblenke:</B></FONT> I'm thinking &quot;service levels&quot; as &quot;this server has had 99.999% uptime&quot; or &quot;you have had 5million apache hits this month&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:59:48)</FONT> <B>fishzle:</B></FONT> the provider doesn't care about those<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:59:53)</FONT> <B>fishzle:</B></FONT> it's just reporting about itself<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:00:04)</FONT> <B>icblenke:</B></FONT> the consumer would concern itself with such things.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:00:05)</FONT> <B>fishzle:</B></FONT> it's the other apps, the nagios, the openviews, that will have the thresholds set<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:00:22)</FONT> <B>lkanies:</B></FONT> icblenke: yeah, that's a reporting thing more than anything else<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:00:46)</FONT> <B>fishzle:</B></FONT> I expect that if we have a bus, then nagios,rt, etc will be able to communicate to the host that it has exceeded a threshold (if the host doesn't do it itself)<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:00:55)</FONT> <B>lkanies:</B></FONT> laen: well, if a host thinks it's QA in puppet, then puppet will configure it to act like a QA host<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:01:13)</FONT> <B>laen:</B></FONT> Oh, in cases where QA is configured differently than production?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:01:14)</FONT> <B>lkanies:</B></FONT> yeah, feedback loops will definitely sit on the bus<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:01:19)</FONT> <B>lkanies:</B></FONT> laen: exactly<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:01:26)</FONT> <B>icblenke:</B></FONT> laen: you might even have an SEC in the middle there for correlation.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:02:01)</FONT> <B>fishzle:</B></FONT> SEC?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:02:04)</FONT> <B>icblenke:</B></FONT> converting from syslog and back again to use SEC might be silly, but it's an engine nonetheless.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:02:13)</FONT> <B>laen:</B></FONT> icblenke: Yeah.. I hate the SEC language, but that's part of what I'm getting at..  An event would be tagged differently, depending on other events around it (by a correlator consumer).<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:02:21)</FONT> <B>laen:</B></FONT> fishzle: &quot;Simple Event Correlator&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:02:42)</FONT> <B>icblenke:</B></FONT> <A HREF="http://kodu.neti.ee/~risto/sec/">http://kodu.neti.ee/~risto/sec/</A><BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:03:53)</FONT> <B>icblenke:</B></FONT> there's an article in the latest Short Topics in System Administration.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:04:42)</FONT> <B>laen:</B></FONT> It seems to me that there'll be _some_ information that the producer won't have that a consumer will have.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:05:07)</FONT> <B>laen:</B></FONT> s/will/could/<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:05:28)</FONT> <B>icblenke:</B></FONT> right, the intelligence of what to do with the messages.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:05:31)</FONT> <B>fishzle:</B></FONT> very much so<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:05:55)</FONT> <B>icblenke:</B></FONT> a producer just needs to pass along what information about an event it can from whatever source it is gathering it.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:06:39)</FONT> <B>icblenke:</B></FONT> I'm still concerned a bit with lost messages, but it sounds like we're largely ignoring the sequence number as having any importance.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:07:13)</FONT> <B>fishzle:</B></FONT> that's a tradeoff in any environment/system<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:07:23)</FONT> <B>fishzle:</B></FONT> reliable transfer has costs<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:07:57)</FONT> <B>icblenke:</B></FONT> if a message isn't received by a producer in a given timeout value (given a periodic event that should happen all the time), it's up to the consumer to throw an alert message to the bus then?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:08:09)</FONT> <B>icblenke:</B></FONT> sorry, if a message isn't received by a consumer, rather.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:08:12)</FONT> <B>fishzle:</B></FONT> besides, a &quot;message not received&quot; can be simulated with a sub/unsub/sub operation<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:08:30)</FONT> <B>laen:</B></FONT> Hey, maybe we should talk a bit about what our producers are, and what our consumers are, so we can think a bit about what information the consumers need.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:08:37)</FONT> <B>fishzle:</B></FONT> that alert method is unpleasant<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:08:47)</FONT> <B>icblenke:</B></FONT> unpleasant, but necessary.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:08:58)</FONT> <B>fishzle:</B></FONT> that presupposes that producers know exactly who the consumers are<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:09:17)</FONT> <B>fishzle:</B></FONT> so, there would need to be some sort of registration service as well<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:09:23)</FONT> <B>lkanies:</B></FONT> (on the phone but...) i'm not convinced that consumers will necessarily be able to use sequence numbers to determine messages are missing<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:09:28)</FONT> <B>lkanies:</B></FONT> how will a consumer ever know one is missing?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:09:38)</FONT> <B>laen:</B></FONT> I don't mean it that way.. I'm thinking &quot;in our environments today, what do we want producing events, and what do we have that we want to receive those events.&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:09:43)</FONT> <B>icblenke:</B></FONT> that presupposes that consumers know exactly what type of message the producers should be providing on an ongoing periodic basis.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:09:51)</FONT> <B>fishzle:</B></FONT> ugly<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(18:09:53)</FONT> <B>icblenke:</B></FONT> lkanies: without a sequence number, it won't.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:10:05)</FONT> <B>fishzle:</B></FONT> even with a sequence number it's not a fix<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(18:10:05)</FONT> <B>icblenke:</B></FONT> lkanies: and re-sends aren't possible in this model either.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:10:05)</FONT> <B>lkanies:</B></FONT> even with a sequence number how could they?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:10:20)</FONT> <B>fishzle:</B></FONT> the producer could send message1 about the clock update<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:10:21)</FONT> <B>lkanies:</B></FONT> unless they are guaranteed that they're subscribed to every single message<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:10:26)</FONT> <B>icblenke:</B></FONT> unless the producer/consumer work out a message passing method to do that synchronization<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:10:37)</FONT> <B>lkanies:</B></FONT> i say: ignore all that for now<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:10:48)</FONT> <B>laen:</B></FONT> luke: I agree... <BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:10:50)</FONT> <B>icblenke:</B></FONT> we can add that on afterward.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:11:06)</FONT> <B>fishzle:</B></FONT> you could ask for an incrementing sequence number<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:11:12)</FONT> <B>fishzle:</B></FONT> that would prevent receiving old messages<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:11:18)</FONT> <B>laen:</B></FONT> I think ordered, reliable delivery is the responsibility of the transport..<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:11:27)</FONT> <B>fishzle:</B></FONT> that would be about the only thing you could guarantee<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:11:59)</FONT> <B>icblenke:</B></FONT> laen: and if the transport doesn't deliver messages for some period of time... you'd need to alert on the consumer for that.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:12:11)</FONT> <B>icblenke:</B></FONT> if the consumer knew it was supposed to receive something within a window of opportunity.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:12:37)</FONT> <B>fishzle:</B></FONT> are we sure keepalives should be using this mechanism?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:12:45)</FONT> <B>icblenke:</B></FONT> not keepalives.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:12:48)</FONT> <B>icblenke:</B></FONT> I have netflow probes.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:12:56)</FONT> <B>icblenke:</B></FONT> every minute, they rotate their logs.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:13:16)</FONT> <B>icblenke:</B></FONT> I want to know when I haven't received any log messages for a 5 minute period. that's a consumer logic thing.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:13:25)</FONT> <B>fishzle:</B></FONT> yes, but not a transport thing<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:13:46)</FONT> <B>fishzle:</B></FONT> you will need higher layer processing to keep timers<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:13:48)</FONT> <B>icblenke:</B></FONT> the transport is down. but it affects the consumer.<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(18:13:48)</FONT> <B>***laen</B></FONT> starts a list of producers and consumers.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:13:52)</FONT> <B>icblenke:</B></FONT> right.<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(18:14:08)</FONT> <B>***laen</B></FONT> adds &quot;syslog&quot; (which is actually a lot of producers), and &quot;netflow probes&quot; to the list of producers.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:14:29)</FONT> <B>icblenke:</B></FONT> add nagios alerts.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:14:39)</FONT> <B>fishzle:</B></FONT> should store the list on madstop.com so we don't lose sight of what the goals are<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:14:42)</FONT> <B>icblenke:</B></FONT> and SAR stats.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:15:00)</FONT> <B>laen:</B></FONT> fishzle: Yeah, true.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:15:19)</FONT> <B>fishzle:</B></FONT> I thought we weren't going to use this to do stats?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:15:27)</FONT> <B>fishzle:</B></FONT> and metrics<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:15:40)</FONT> <B>icblenke:</B></FONT> it's a transport.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:15:42)</FONT> <B>laen:</B></FONT> Well, that's a type of message that could be sent..<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:15:55)</FONT> <B>laen:</B></FONT> &quot;load_one: 0.15&quot; is a valid message..<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:15:55)</FONT> <B>fishzle:</B></FONT> hmm<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:16:21)</FONT> <B>icblenke:</B></FONT> missing an event is just as important as missing some chunk of statistics.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:16:23)</FONT> <B>fishzle:</B></FONT> I'm sure we didn't want to build a general purpose message passing system<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:16:24)</FONT> <B>laen:</B></FONT> So is &quot;sshd started&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:16:25)</FONT> <B>icblenke:</B></FONT> usually, they're correlated.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:17:00)</FONT> <B>fishzle:</B></FONT> I understand we want info out, but<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:17:29)</FONT> <B>fishzle:</B></FONT> I'm thinking that some of these things will make it a very heavy protocol<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:17:42)</FONT> <B>fishzle:</B></FONT> with ACKs, NAKs, retransmits, etc<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:17:48)</FONT> <B>fishzle:</B></FONT> hmm<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:19:00)</FONT> <B>laen:</B></FONT> Yeah, that's a concern.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:19:23)</FONT> <B>fishzle:</B></FONT> &quot;&lt;laen&gt; I think ordered, reliable delivery is the responsibility of the transport..&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:19:37)</FONT> <B>fishzle:</B></FONT> is where you are<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:19:47)</FONT> <B>fishzle:</B></FONT> I think a more UDP like model would be simpler<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:19:52)</FONT> <B>laen:</B></FONT> (In my mind, I'm using XMPP as the transport protocol, until we decide on something else..)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:20:07)</FONT> <B>fishzle:</B></FONT> other apps can build reliability or ordering as they like<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:20:14)</FONT> <B>fishzle:</B></FONT> brb, gotta go to the postoffice<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:20:35)</FONT> <B>laen:</B></FONT> (Others may have other ideas on what that transport looks like..)<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:20:51)</FONT> <B>lkanies:</B></FONT> laen: if you email me the list i'll stick it up there<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:21:58)</FONT> <B>lkanies:</B></FONT> i'm about to head out and won't be back until late, but keep it up :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:24:05)</FONT> <B>icblenke:</B></FONT> laen: yeah, I'm thinking XMPP too.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:24:59)</FONT> <B>lkanies:</B></FONT> i'm cool with that<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:28:42)</FONT> <B>laen:</B></FONT> luke: Mailed.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:29:21)</FONT> <B>laen:</B></FONT> For everyone else:<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:29:24)</FONT> <B>laen:</B></FONT> Producers:<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:29:24)</FONT> <B>laen:</B></FONT>    Syslog (this is really a lot of producers, sshd, imapd, sendmail, etc..)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:29:24)</FONT> <B>laen:</B></FONT>    Netflow probes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:29:24)</FONT> <B>laen:</B></FONT>    Nagios alerts<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:29:24)</FONT> <B>laen:</B></FONT>    SAR stats<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:29:25)</FONT> <B>laen:</B></FONT>    Cron job execution status<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:29:27)</FONT> <B>laen:</B></FONT> Consumers:<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:29:29)</FONT> <B>laen:</B></FONT>    Statistics systems (netflow receivers, sar data collectors, cacti)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:29:31)</FONT> <B>laen:</B></FONT>    Monitoring systems (nagios, openview, etc)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:29:33)</FONT> <B>laen:</B></FONT>    Security monitors (logsurfer)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:29:35)</FONT> <B>laen:</B></FONT>    Alerting system<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:29:37)</FONT> <B>laen:</B></FONT>    Problem tracking system (RT, Trac, etc)<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:32:25)</FONT> <B>lkanies:</B></FONT> i just asked about doing WIPs on runnels and puppet at LISA<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:33:53)</FONT> <B>lkanies:</B></FONT> rather, i emailed the wips address about it<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(18:40:04)</FONT> <B>***laen</B></FONT> envies the LISA-goers.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:40:27)</FONT> <B>lkanies:</B></FONT> <A HREF="https://reductivelabs.com/projects/runnels/examples/view">https://reductivelabs.com/projects/runnels/examples/view</A><BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:40:29)</FONT> <B>lkanies:</B></FONT> ok, i'm off<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:40:30)</FONT> <B>lkanies:</B></FONT> ttyl<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:40:33)</FONT> <B>laen:</B></FONT> Bye!<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:40:37)</FONT> <B>icblenke:</B></FONT> ciao!<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:48:59)</FONT> <B>laen:</B></FONT> Okay, my &quot;runnels as delicious for events&quot; idea is bad on some other levels, as I envision it.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:50:11)</FONT> <B>laen:</B></FONT> For example: It means the queue would grow indefinitely, without some sort of expiration process.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:50:35)</FONT> <B>laen:</B></FONT> On the other hand, I'd really like to have a database of all events that I've passed.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:51:45)</FONT> <B>laen:</B></FONT> (Well, not _all_ but &quot;some time period's worth&quot;)<BR>
+<FONT SIZE="2">(18:52:32)</FONT> <B>fishzle left the room (quit: Read error: 104 (Connection reset by peer)).</B><BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:52:34)</FONT> <B>laen:</B></FONT> ..And it would be neat to be able to write little scripts that subscribe to some combination of tags, and get the last 50 events that match ,or somesuch..<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(19:02:28)</FONT> <B>***laen</B></FONT> -&gt; home.<BR>
+<FONT SIZE="2">(21:37:02)</FONT> <B>fishzle [<I>n=fi@60-241-49-66.tpgi.com.au</I>] entered the room.</B><BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(21:38:09)</FONT> <B>fishzle:</B></FONT> <A HREF="http://www.jlab.org/~chen/cmlog/paper.pdf">http://www.jlab.org/~chen/cmlog/paper.pdf</A><BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(21:38:17)</FONT> <B>fishzle:</B></FONT> here's some other logging system<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(21:38:26)</FONT> <B>fishzle:</B></FONT> older, but with analysis<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(21:46:15)</FONT> <B>fishzle:</B></FONT> actually, it's too old<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(00:09:10)</FONT> <B>lkanies:</B></FONT> <A HREF="https://reductivelabs.com/projects/runnels/model">https://reductivelabs.com/projects/runnels/model</A><BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(00:11:44)</FONT> <B>lkanies:</B></FONT> and now, off to bed<BR>
+
+*$Id: semantics.page 6 2006-07-02 20:05:14Z luke $*

@@ -1,0 +1,352 @@
+---
+inMenu: true
+---
+
+The IRC discussion that led to the creation of this project.
+
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:26:36)</FONT> <B>spike:</B></FONT> talking of puppet for a moment how would you see an integration with a ticketing system<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:26:46)</FONT> <B>spike:</B></FONT> because that's a project I'm working on<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:27:01)</FONT> <B>laen:</B></FONT> Cool.  Which ticketing system?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:27:18)</FONT> <B>spike:</B></FONT> it's based on trac<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:27:30)</FONT> <B>icblenke:</B></FONT> pure ruby all around eh?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:27:33)</FONT> <B>spike:</B></FONT> ehehe<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:27:42)</FONT> <B>f3ew:</B></FONT> spike why?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:27:56)</FONT> <B>spike:</B></FONT> why what? why I'm working on such thing?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:28:14)</FONT> <B>f3ew:</B></FONT> why integrate puppet and a ticketing system?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:28:17)</FONT> <B>laen:</B></FONT> spike: Is this ticketing for change control, or ticketing for defect tracking?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:28:47)</FONT> <B>laen:</B></FONT> (Do you want puppet changes to generate change control tickets, or do you want to write puppet code in response to bug requests?)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:29:02)</FONT> <B>spike:</B></FONT> f3ew: integrating management decisions with support requests and similar, and management interventions <BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:29:15)</FONT> <B>spike:</B></FONT> so I can automatically record that on day X I did that on machine Y<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:29:26)</FONT> <B>spike:</B></FONT> so far I've put together an svn repo which is interfaced with trac by defaul<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:29:41)</FONT> <B>spike:</B></FONT> so when I upload configs changes are tracked on a timeline and recorded<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:29:57)</FONT> <B>spike:</B></FONT> then clients fetch the config file and u know the rest of the story<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:30:24)</FONT> <B>icblenke:</B></FONT> puppet records the transactions of all changes...<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:30:36)</FONT> <B>spike:</B></FONT> and once I got this to talk xml I can put together a client side of this thing, so clients can inform servers when things actually took place and so on<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:30:55)</FONT> <B>spike:</B></FONT> icblenke: has it got a frontend to them? are they searcheable? presentable to management?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:31:11)</FONT> <B>spike:</B></FONT> see, I'm working on something that could be compared to syslog-ng<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:31:12)</FONT> <B>icblenke:</B></FONT> spike: dunno. haven't managed to get it up and running here yet.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:31:27)</FONT> <B>spike:</B></FONT> where events are those of control applications, like cfengine, nagios, munin and so on<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:31:43)</FONT> <B>icblenke:</B></FONT> spike: sounds like a message bus.<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(14:31:51)</FONT> <B>***f3ew</B></FONT> goes al;ll twitchy<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:32:17)</FONT> <B>icblenke:</B></FONT> spike: not XMPP?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:32:23)</FONT> <B>spike:</B></FONT> icblenke: sort of, plus the presentation part, so events are recorded properly and easily accessible <BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:32:35)</FONT> <B>icblenke:</B></FONT> spike: opensourced?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:32:50)</FONT> <B>spike:</B></FONT> what? this thing I'm writing?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:32:53)</FONT> <B>icblenke:</B></FONT> yeah.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:32:55)</FONT> <B>f3ew:</B></FONT> spike what about do one thing, do it well?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:05)</FONT> <B>spike:</B></FONT> yup, sure, gpl<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:10)</FONT> <B>icblenke:</B></FONT> excellent.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:16)</FONT> <B>spike:</B></FONT> f3ew: what about doing one thing at the time and do it well?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:23)</FONT> <B>spike:</B></FONT> and do to things and put them together<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:36)</FONT> <B>icblenke:</B></FONT> luke has talked about integrating stats and interfacing with such things.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:45)</FONT> <B>laen:</B></FONT> spike: Very nice.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:47)</FONT> <B>spike:</B></FONT> I need both of the things, the msg bus, and the presentation layer, both arent dependent <BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:34:15)</FONT> <B>spike:</B></FONT> trac, considering it's integration with wiki and tracking system seemed to me the best base<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:34:37)</FONT> <B>laen:</B></FONT> (Does trac have an XMLRPC interface?)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:34:38)</FONT> <B>spike:</B></FONT> I will have to edit and keep ur puppets config under revision control anyway<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:34:41)</FONT> <B>icblenke:</B></FONT> some people are using syslog-ng as a system bus, luke mentioned that too. I'm partial to XMPP, or a message bus with queues and publish/subscribe.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:04)</FONT> <B>laen:</B></FONT> The problem with XMPP is that it necessarily means daemons, doesn't it?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:06)</FONT> <B>icblenke:</B></FONT> spike: a pupppet&lt;&gt;trac bridge would be awesome.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:24)</FONT> <B>laen:</B></FONT> (I mean, there's sendxmpp on the clients, but the server processes must always be running..)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:30)</FONT> <B>icblenke:</B></FONT> laen: it does. that's why I like the idea of something like a pluggable mcp running on every node.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:43)</FONT> <B>icblenke:</B></FONT> <A HREF="http://ian.blenke.com/mcp/">http://ian.blenke.com/mcp/</A><BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:36:25)</FONT> <B>icblenke:</B></FONT> luke has mentioned that he wants something like an event loop on every node at some point in the near future.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:37:10)</FONT> <B>spike:</B></FONT> don't u use apps like nagios?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:37:21)</FONT> <B>spike:</B></FONT> or munin/cacti<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:37:28)</FONT> <B>icblenke:</B></FONT> we use a heavily modified version of netsaint here (pre nagios), but yeah.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:39:10)</FONT> <B>icblenke:</B></FONT> a programmatic message bus is one of the big missing pieces in system administration.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:39:28)</FONT> <B>spike:</B></FONT> trac xmlrpc support is being worked one<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:39:34)</FONT> <B>spike:</B></FONT> (sorry was on the phone)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:40:03)</FONT> <B>spike:</B></FONT> and yes, I dont wanna force ppl to get extra server stuff listening, so xlmrpc looked fine<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:40:35)</FONT> <B>f3ew:</B></FONT> Hmmm, so if I understand correctly, spike is implementing an interface between trac and puppet?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:42:01)</FONT> <B>spike:</B></FONT> f3ew: I think we went over this lots time ago in #security, you never saw the point of it :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:42:15)</FONT> <B>icblenke:</B></FONT> well, spike is implementing a message bus, by the sound of things.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:42:30)</FONT> <B>icblenke:</B></FONT> with a visualization system<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:42:42)</FONT> <B>spike:</B></FONT> f3ew: nope, what I'm working on is a sort of prelude/BASE thingie but for &quot;administration/management events&quot;, not security ones<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:43:07)</FONT> <B>f3ew:</B></FONT> hmmm<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:43:12)</FONT> <B>spike:</B></FONT> that thing should understand things like puppet, nagios, monit, munin<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:43:14)</FONT> <B>icblenke:</B></FONT> spike: oddly enough, that's what I'm working on here.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:43:14)</FONT> <B>f3ew:</B></FONT> I remember _that_ discussion<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:43:19)</FONT> <B>spike:</B></FONT> :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:43:28)</FONT> <B>laen:</B></FONT> Me too! :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:43:34)</FONT> <B>spike:</B></FONT> ahahah<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(14:43:38)</FONT> <B>***f3ew</B></FONT> still doesn't see the design of the system<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:43:44)</FONT> <B>icblenke:</B></FONT> see. it's a big missing piece that every SA is looking for.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:06)</FONT> <B>laen:</B></FONT> Definitely.  Event management is both important, and sucks.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:25)</FONT> <B>spike:</B></FONT> we're too crazy after security to focus on management imho<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:31)</FONT> <B>laen:</B></FONT> Right now I'm trying to bolt together syslog-ng, logsurfer, and SEC.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:43)</FONT> <B>icblenke:</B></FONT> ick.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:46)</FONT> <B>f3ew:</B></FONT> Would this be analogous to a fancy pipe + cron system (with a lot more flexibility)?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:54)</FONT> <B>icblenke:</B></FONT> yes.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:57)</FONT> <B>f3ew:</B></FONT> ah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:45:02)</FONT> <B>f3ew:</B></FONT> that makes sense<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:45:04)</FONT> <B>spike:</B></FONT> laen: how's going with SEC? I've never seen the point and stuck to swatch<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:45:25)</FONT> <B>f3ew:</B></FONT> abstraction helps <BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:45:26)</FONT> <B>f3ew:</B></FONT> :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:45:36)</FONT> <B>spike:</B></FONT> :)<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(14:46:00)</FONT> <B>***f3ew</B></FONT> bills spike for the three hours spent discussing the stuff<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:46:05)</FONT> <B>spike:</B></FONT> ehehe<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:46:23)</FONT> <B>laen:</B></FONT> Well... I'm starting to think I should've stuck with logsurfer.<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(14:46:37)</FONT> <B>***spike</B></FONT> notes down &quot;fancy pipe + cron system (with a lot more flexibility)&quot; for later use<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:02)</FONT> <B>laen:</B></FONT> What I really want is to take a stream of events, distill them down to &quot;events&quot;, then tag the events with certain string that then get routed appropriately.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:19)</FONT> <B>f3ew:</B></FONT> aka, a fancy pipe :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:24)</FONT> <B>laen:</B></FONT> Right.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:50)</FONT> <B>laen:</B></FONT> I'm trying to get SEC to do the distilling and tagging part.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:48:19)</FONT> <B>f3ew:</B></FONT> So you need a router for events, with flexibility to modify event signals and route based on (1) destination, (2) origin, (3) message content<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:49:07)</FONT> <B>laen:</B></FONT> (And the content of other messages through the stream).<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:49:13)</FONT> <B>icblenke:</B></FONT> with a flexible ruleset for defining the routes.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:49:26)</FONT> <B>laen:</B></FONT> Like, one Invalid login isn't a problem. 1/s is.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:49:27)</FONT> <B>icblenke:</B></FONT> (with filtering and rewriting, potentially)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:49:31)</FONT> <B>f3ew:</B></FONT> icblenke that is what defines the router :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:49:39)</FONT> <B>icblenke:</B></FONT> or just make filtering and rewriting destinations to route through.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:01)</FONT> <B>f3ew:</B></FONT> (4) event count<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:04)</FONT> <B>laen:</B></FONT> spike: So you want a way for puppet to generate events about what it's doing, and have those events feed into trac?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:10)</FONT> <B>f3ew:</B></FONT> and (5) lack of events<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:22)</FONT> <B>icblenke:</B></FONT> SOA seems excessive to me. ESB looked interesting. but all of that complexity...<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:36)</FONT> <B>laen:</B></FONT> Also, an NTP synchronization failure is only a problem if it doesn't re-sync within a few minutes.  So I want to know about the contents of other messages around it.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:36)</FONT> <B>f3ew:</B></FONT> no login attempts at ~ 9 am is a bad thing<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:40)</FONT> <B>laen:</B></FONT> SEC is good for that, as is logsurfer..<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:54)</FONT> <B>spike:</B></FONT> laen: yeah, that's what I was asking about initially. if there was any implemented interface to send the msg out somewhere<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:55)</FONT> <B>laen:</B></FONT> ..The rules get a bit complicated, though. :/<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:07)</FONT> <B>spike:</B></FONT> laen: I guess I could use Actions, but it'd be an horrible workaround<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:16)</FONT> <B>spike:</B></FONT> something at a lower level would definitely much better<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:17)</FONT> <B>f3ew:</B></FONT> spike there is a logging interface<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:31)</FONT> <B>spike:</B></FONT> oh, yeah<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(14:51:34)</FONT> <B>f3ew:</B></FONT> lkanies had some design ideas, you might want to talk to him<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:39)</FONT> <B>icblenke:</B></FONT> this also feeds into stats collection.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:45)</FONT> <B>icblenke:</B></FONT> where is luke today?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:50)</FONT> <B>f3ew:</B></FONT> though both of us dislike XML<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:53)</FONT> <B>f3ew:</B></FONT> he was here<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:03)</FONT> <B>icblenke:</B></FONT> I'm not realy big on XML either.<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(14:52:10)</FONT> <B>f3ew:</B></FONT> lkanies ok, time to brush my teeth :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:11)</FONT> <B>f3ew:</B></FONT> * docelic has quit (&quot;Leaving&quot;)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:11)</FONT> <B>f3ew:</B></FONT> laen facter?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:11)</FONT> <B>spike:</B></FONT> how would you do it then?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:29)</FONT> <B>spike:</B></FONT> IPC I mean<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:46)</FONT> <B>f3ew:</B></FONT> a fixed delimiter and simple text messages<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:55)</FONT> <B>icblenke:</B></FONT> or yaml<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:53:05)</FONT> <B>f3ew:</B></FONT> XML is _not_ human readable, and parsing it is painful<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:53:26)</FONT> <B>icblenke:</B></FONT> yaml is good for that<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:56:35)</FONT> <B>icblenke:</B></FONT> straight marshalled ruby objects would be the easiest, as YAML has weird corner cases from what I've heard.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:56:58)</FONT> <B>icblenke:</B></FONT> which really leads to DRb... <BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:57:20)</FONT> <B>icblenke:</B></FONT> luke chose XML-RPC for the genericness of it though. I can't argue with keeping the message bus open.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:57:33)</FONT> <B>f3ew:</B></FONT> yeah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:58:00)</FONT> <B>icblenke:</B></FONT> YAML is &quot;open enough&quot; in my book.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:58:07)</FONT> <B>f3ew:</B></FONT> OTOH, funny thing<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:58:35)</FONT> <B>f3ew:</B></FONT> friend at Y! told me today that a new programmer wanted to get all their logs rewritten in XML for easier machine parsing<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:58:51)</FONT> <B>icblenke:</B></FONT> hah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:58:52)</FONT> <B>spike:</B></FONT> :D<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(14:59:07)</FONT> <B>***lkanies</B></FONT> is back<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(14:59:14)</FONT> <B>lkanies:</B></FONT> i was on my bicycle :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:59:14)</FONT> <B>f3ew:</B></FONT> slight problem is that grep doesn't work with that<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(14:59:15)</FONT> <B>***spike</B></FONT> wonders about some many ppl having friends @ Y! lately<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:59:18)</FONT> <B>f3ew:</B></FONT> wb Luke<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:59:20)</FONT> <B>spike:</B></FONT> s/some/so/<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:59:21)</FONT> <B>icblenke:</B></FONT> luke returns!<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:59:34)</FONT> <B>spike:</B></FONT> well, I'm off to the pub, guinness time<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(14:59:38)</FONT> <B>lkanies:</B></FONT> i definitely have been thinking about events, ticketing, etc.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:59:43)</FONT> <B>spike:</B></FONT> c u later guys, thanks for pointers and comments<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:59:44)</FONT> <B>icblenke:</B></FONT> we were discussing an event message bus<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(14:59:44)</FONT> <B>lkanies:</B></FONT> spike: eh? bad timing...<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:59:55)</FONT> <B>f3ew:</B></FONT> spike Yahoo! offices are like... 3 km away, and quite a few of the LUG members I know are there<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(14:59:56)</FONT> <B>lkanies:</B></FONT> can you wait two minutes?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:00:02)</FONT> <B>icblenke:</B></FONT> spike: we'll be here when you come back ;)<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:00:25)</FONT> <B>lkanies:</B></FONT> i just wanted to point out, puppet already thinks in terms of events and i have a plan for how to integrate with a ticketing system<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:00:27)</FONT> <B>spike:</B></FONT> icblenke: emh, yeah, I already have some probs articulating meaningful statements :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:00:36)</FONT> <B>spike:</B></FONT> but I'll stick around few minutes more<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(15:00:39)</FONT> <B>***spike</B></FONT> listens to lkanies <BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(15:00:49)</FONT> <B>***f3ew</B></FONT> fills spike with caffeine<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:00:54)</FONT> <B>lkanies:</B></FONT> and, i'm thinking of using microformats (microformats.org) to define the simple formats of the objects that i want to pass around<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(15:01:21)</FONT> <B>***f3ew</B></FONT> RTFMs<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:01:37)</FONT> <B>lkanies:</B></FONT> so, you define a bunch of simple, ad-hoc formats for things like events, log messages, etc., and other people can easily understand them and read/generate them<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:01:46)</FONT> <B>icblenke:</B></FONT> ooh. neat.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:01:59)</FONT> <B>spike:</B></FONT> cool<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:02:25)</FONT> <B>spike:</B></FONT> I'll read up on mf.org, that sounds a big improvement for my thingie too<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(15:02:35)</FONT> <B>spike:</B></FONT> lkanies: does it happen u know/use/like trac?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:02:41)</FONT> <B>lkanies:</B></FONT> plus i'm tagging all of these things i'm generating, so my log messages and events and metrics or whatever are all tagged with 1) the path to the object that generated them (e.g., /webserver/apache/service=apache) and all of the other crap that puppet things is useful (e.g., os, ip address, node name, different classes, etc.)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:02:46)</FONT> <B>spike:</B></FONT> or are you more a perl guy and was thinking of twiki?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:02:47)</FONT> <B>laen:</B></FONT> Hey, microformats is neat.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:02:53)</FONT> <B>lkanies:</B></FONT> spike: yeah, i _use_ it, but definitely &quot;use&quot;, not develop<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:02:58)</FONT> <B>lkanies:</B></FONT> i barely use it, in other words<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:03:09)</FONT> <B>lkanies:</B></FONT> <A HREF="https://reductivelabs.com/cgi-bin/puppet.cgi">https://reductivelabs.com/cgi-bin/puppet.cgi</A><BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:03:40)</FONT> <B>f3ew:</B></FONT> Looks good<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:03:43)</FONT> <B>spike:</B></FONT> cool<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:03:46)</FONT> <B>lkanies:</B></FONT> yeah, the microformats guys aren't going to know what hit them -- they're thinking all this interactive crap for person-to-person comm, and i'm going to build all the node-to-node stuff instead<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:03:54)</FONT> <B>icblenke:</B></FONT> heh<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:04:00)</FONT> <B>spike:</B></FONT> ehehe<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:04:06)</FONT> <B>lkanies:</B></FONT> i went to the web 2.0 con in oct to try to find out more about how i can take a lot of the really coold stuff they're doing and apply it to my tools<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(15:04:12)</FONT> <B>f3ew:</B></FONT> lkanies what is the difference?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:04:15)</FONT> <B>lkanies:</B></FONT> and i found plenty of stuff to do<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:04:27)</FONT> <B>lkanies:</B></FONT> f3ew: there is no difference except in how you think about it<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:04:30)</FONT> <B>f3ew:</B></FONT> It is still a bit verbose<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(15:04:56)</FONT> <B>f3ew:</B></FONT> lkanies I don't see a difference between two systems (biological and electroic) communicating<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:05:10)</FONT> <B>lkanies:</B></FONT> and no one is really even thinking about trying to apply it all to computers<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:05:16)</FONT> <B>lkanies:</B></FONT> f3ew: they aren't different, that's my point<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:05:28)</FONT> <B>lkanies:</B></FONT> i can just directly apply their ideas to computer shit, and it will seem all revolutionary<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:05:39)</FONT> <B>spike:</B></FONT> well, really off now. later guys<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:05:41)</FONT> <B>f3ew:</B></FONT> Now, how can we make that _less_ verbose<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:05:46)</FONT> <B>lkanies:</B></FONT> spike: ok<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:05:52)</FONT> <B>f3ew:</B></FONT> or maybe we don't need to<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:05:58)</FONT> <B>lkanies:</B></FONT> i'm around all the time, and feel free to hit the list with longer discussions<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:05:59)</FONT> <B>f3ew:</B></FONT> we don't<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:06:02)</FONT> <B>lkanies:</B></FONT> f3ew: which &quot;that&quot;?<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(15:06:07)</FONT> <B>***f3ew</B></FONT> figures it out<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:06:14)</FONT> <B>f3ew:</B></FONT> the message formats<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:06:32)</FONT> <B>lkanies:</B></FONT> ah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:06:38)</FONT> <B>icblenke:</B></FONT> microformats looks like well formatted html instead of XML.<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(15:06:38)</FONT> <B>spike:</B></FONT> lkanies: tnx much, I'll stay tuned and report back, it's likely I've to learn much from you guys, I'm already rethinking a couple of things now that I hit mf and yaml<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:06:44)</FONT> <B>spike:</B></FONT> - off<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:06:52)</FONT> <B>lkanies:</B></FONT> heh<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(15:07:34)</FONT> <B>lkanies:</B></FONT> ok, i better grab some lunch (it's 1500 here), i just wanted to pop in since i could hear people talking about me :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:19:02)</FONT> <B>spike:</B></FONT> so, I was drinking and discussing of this...<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:19:33)</FONT> <B>spike:</B></FONT> I have to look at mf, but this guy came up with some nice idea, even if that sounds a bit too &quot;portable&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:19:49)</FONT> <B>icblenke:</B></FONT> that is?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:19:59)</FONT> <B>f3ew:</B></FONT> what? mf?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:20:05)</FONT> <B>spike:</B></FONT> icblenke: using syslog<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:20:05)</FONT> <B>f3ew:</B></FONT> or something else?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:20:15)</FONT> <B>f3ew:</B></FONT> spike we already did that :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:20:19)</FONT> <B>spike:</B></FONT> MicroFormat<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:20:22)</FONT> <B>f3ew:</B></FONT> does anyone have channel logs?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:21:04)</FONT> <B>icblenke:</B></FONT> syslog-ng is commonly used for it right now.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:21:08)</FONT> <B>spike:</B></FONT> well, if you build a  bus system, u then have to let other apps to use it, so u're likely to patch them if they don't do it<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:21:10)</FONT> <B>f3ew:</B></FONT> (we discussed syslog, not mf)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:21:21)</FONT> <B>f3ew:</B></FONT> yeah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:21:36)</FONT> <B>spike:</B></FONT> the thing is, what's the point of patching an app to write to syslog, when it can send the event to some server with xmlrpc?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:21:37)</FONT> <B>f3ew:</B></FONT> the alternative is to use a bus ,-&gt; program interface conversion app<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:21:50)</FONT> <B>icblenke:</B></FONT> I'm thinking more of a syslong-ng &quot;plugin&quot; that converts all messages there into events on the event bus.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:21:54)</FONT> <B>f3ew:</B></FONT> assuming your apps support xml-rpc<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:22:04)</FONT> <B>f3ew:</B></FONT> none of mine do<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:22:17)</FONT> <B>icblenke:</B></FONT> syslog is one direction.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:22:19)</FONT> <B>spike:</B></FONT> u have to write a patch anyway, so why would you write it to let it log to syslog, and then work on syslog to get ur stuff messaged remotely and parse from log fails?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:22:26)</FONT> <B>spike:</B></FONT> yeah, ok<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:22:37)</FONT> <B>spike:</B></FONT> icblenke: u then need to patch nagios to write to syslog<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:22:49)</FONT> <B>f3ew:</B></FONT> because I have an excwellent logging infrastructure<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:22:50)</FONT> <B>spike:</B></FONT> becuase atm it doesnt, at least, not events like mail alert, it logs different stuff<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:22:53)</FONT> <B>icblenke:</B></FONT> spike: or you need to patch nagios to write to the event bus.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:23:08)</FONT> <B>f3ew:</B></FONT> and I have stuff logging there<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(16:23:27)</FONT> <B>***f3ew</B></FONT> &lt;3 syslog<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:23:28)</FONT> <B>spike:</B></FONT> yeah, whatever it is, u still need to patch nagios.so which patch would be better? once that let it log everything to syslog, or something that send the events with xml-rpc<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:23:28)</FONT> <B>icblenke:</B></FONT> the event bus also needs &quot;stat sinks&quot; that record stat messages over time into rrd databases for later display<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:24:01)</FONT> <B>f3ew:</B></FONT> spike I _have_ a logging infrastructure<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:24:09)</FONT> <B>f3ew:</B></FONT> |logger if you want to<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:24:15)</FONT> <B>icblenke:</B></FONT> least common denominator...<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:24:51)</FONT> <B>icblenke:</B></FONT> sure, you can use syslog for all of it.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:25:06)</FONT> <B>f3ew:</B></FONT> Well, getting apps to log to syslog is easier than patching everything to do xml-rpc<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:25:31)</FONT> <B>f3ew:</B></FONT> xml-rpc is also network heavy, _which_ is important to me<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:25:36)</FONT> <B>icblenke:</B></FONT> however, you don't have a true message bus, with bidirectional communication or queues.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:25:40)</FONT> <B>spike:</B></FONT> ok, so that would be your rute? write something capable or routing messages, and for clients write patches that logs whatever u want to syslog, and then force the user to mess with syslog to log that stuff to ur bus thingie?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:25:55)</FONT> <B>f3ew:</B></FONT> uh, no<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:25:58)</FONT> <B>icblenke:</B></FONT> I'm stuck with a larger problem<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:26:00)</FONT> <B>spike:</B></FONT> yeah, just receiving suffice <BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:26:04)</FONT> <B>f3ew:</B></FONT> syslog is one component of my bus<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:26:08)</FONT> <B>icblenke:</B></FONT> my network is widely distributed behind firewalls I don't run.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:26:13)</FONT> <B>f3ew:</B></FONT> ah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:26:23)</FONT> <B>icblenke:</B></FONT> the only guarantees I have are that I can ssh to hosts and they can send out SMTP mail.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:26:41)</FONT> <B>icblenke:</B></FONT> everything else requires much cajoling of customers to permit things through.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:26:54)</FONT> <B>icblenke:</B></FONT> so, I'm stuck writing my own SMTP based message bus <BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:27:05)</FONT> <B>icblenke:</B></FONT> at the moment, I call it &quot;feed/eat&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:27:27)</FONT> <B>icblenke:</B></FONT> Events are trigged at the edge by cron jobs and applications.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:27:40)</FONT> <B>f3ew:</B></FONT> Ok, so we have _very_ different requirements<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:27:47)</FONT> <B>icblenke:</B></FONT> for example, flow-capture triggers a script every minute telling me what flow file to chop up and send<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:27:59)</FONT> <B>f3ew:</B></FONT> yup<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:28:25)</FONT> <B>icblenke:</B></FONT> right. I can cram YAML over SMTP and encrypt it end to end. that's what I'm doing now.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:28:37)</FONT> <B>f3ew:</B></FONT> Ok, we need (1) a XML-RPC thing for those who need buizzword compliance<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:29:17)</FONT> <B>f3ew:</B></FONT> (2) a non-rpc scriptableasync channel capable of being tunneled over other protocols<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:29:40)</FONT> <B>icblenke:</B></FONT> Base64.encode64(cipher.update(Zlib::Deflate.deflate(object.to_yaml( :Indent =&gt; 2, :UseHeader =&gt; true, :UseVersion =&gt; true, :ExplicitTypes =&gt; true, :UseFold =&gt; true, :UseBlock =&gt; true ),9))+cipher.final)<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(16:29:54)</FONT> <B>spike:</B></FONT> lkanies: u there?<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(16:30:05)</FONT> <B>spike:</B></FONT> lkanies: what would you use as IPC protocol? xml-rpc?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:30:13)</FONT> <B>icblenke:</B></FONT> that's what he uses now.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:30:17)</FONT> <B>spike:</B></FONT> oh, k<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:30:20)</FONT> <B>spike:</B></FONT> didnt get that<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:30:21)</FONT> <B>f3ew:</B></FONT> spike Look at what icblenke needs<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:30:35)</FONT> <B>spike:</B></FONT> this is getting really harder :), I'm besides half-way drunk :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:30:49)</FONT> <B>spike:</B></FONT> and my english isnt that good in normal conditions, not to mention brain activity :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:30:50)</FONT> <B>icblenke:</B></FONT> what I plan on doing soon is this:<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:31:10)</FONT> <B>laen:</B></FONT> spike: What country are you from/in ?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:31:21)</FONT> <B>spike:</B></FONT> laen: .uk atm<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:31:32)</FONT> <B>icblenke:</B></FONT> one central &quot;master&quot; sshing to every remote node, opening a channel to do DRb over stdin/stdout. bidirectional.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:31:56)</FONT> <B>spike:</B></FONT> laen: should be .uk for quite a while I hope<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:32:09)</FONT> <B>f3ew:</B></FONT> icblenke Look at worst case scenario<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:32:15)</FONT> <B>f3ew:</B></FONT> you have to work over SMTP<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:32:25)</FONT> <B>spike:</B></FONT> laen: I'm from .it, tho, just moved here recently. u? .us if I got it correctly, eh?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:32:43)</FONT> <B>laen:</B></FONT> Yeah, .or.us.<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(16:33:11)</FONT> <B>***spike</B></FONT> echos f3ew on &quot;wrong part of the world&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:34:36)</FONT> <B>icblenke:</B></FONT> worse case I have _one way_ SMTP<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:34:47)</FONT> <B>f3ew:</B></FONT> yes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:35:19)</FONT> <B>icblenke:</B></FONT> which is ok, but doesn't help me when message get &quot;lost&quot; and should be re-sent.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:35:44)</FONT> <B>icblenke:</B></FONT> you don't want holes to appear in logs or stats from missing messages.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:35:57)</FONT> <B>icblenke:</B></FONT> Feed and Eat synchronize using a sequence number.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:36:13)</FONT> <B>icblenke:</B></FONT> but, ideally, I want a rolling queue and a producer/consumer model.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:36:19)</FONT> <B>icblenke:</B></FONT> with guaranteed delivery.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:36:30)</FONT> <B>icblenke:</B></FONT> ie, a message bus.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:36:31)</FONT> <B>f3ew:</B></FONT> yeah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:36:36)</FONT> <B>f3ew:</B></FONT> SMTP is not reliable<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:36:50)</FONT> <B>f3ew:</B></FONT> but if you only get 2 way SMTP?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:36:56)</FONT> <B>spike:</B></FONT> I dont want to get this thing too big... bah, neither to define a bad design<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:37:11)</FONT> <B>spike:</B></FONT> messing with syslogs sounds much of a requirement for any installation<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:37:39)</FONT> <B>spike:</B></FONT> adding a plugin to app X to let app X sending events over xml-rpc sounds less burden for the &quot;user&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:38:00)</FONT> <B>spike:</B></FONT> and a few apps can already do that, while the other part would be of harder implementation<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:40:55)</FONT> <B>icblenke:</B></FONT> you can always tunnel syslog over the event bus later<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:41:30)</FONT> <B>icblenke:</B></FONT> least common denominator suggests using syslog<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:42:02)</FONT> <B>icblenke:</B></FONT> in a large farm of servers, however, it's often best to churn what data you can at the edge and only send in summaries to the stats and alerting collectors.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:42:12)</FONT> <B>icblenke:</B></FONT> (large farm meaning more than 1000)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:42:36)</FONT> <B>spike:</B></FONT> this wouldnt be lots of traffic anyway<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:42:51)</FONT> <B>icblenke:</B></FONT> Also, ssh tunnelling for my message bus means I get to have 1000 open outbound ssh connections from the central master. Ouch.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:43:01)</FONT> <B>spike:</B></FONT> remember this are events u want to read about, so they must reduced in number anyway<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:43:11)</FONT> <B>spike:</B></FONT> like lowering snort false-positive<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:43:31)</FONT> <B>spike:</B></FONT> as long as ur reporting events app triggers too many of them u will end up not reading 'em<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:43:54)</FONT> <B>icblenke:</B></FONT> so you're thinking of processing syslog messages at the end and sending a summary at another syslog level to the collector?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:45:05)</FONT> <B>icblenke:</B></FONT> s/end/edge/<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:45:22)</FONT> <B>spike:</B></FONT> nah, since u're writing the patch for the app, u're gonna define that what's good to be sent and what not<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:45:57)</FONT> <B>spike:</B></FONT> less info to process, easier to keep it better organized per patch<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(16:46:04)</FONT> <B>icblenke:</B></FONT> snort was our first message bus. the raw volume of mail heading in from the collectors.. mindboggling.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:00:41)</FONT> <B>f3ew:</B></FONT> spike If you have centralised syslog collectors, syslog is a good thing choice<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:01:01)</FONT> <B>f3ew:</B></FONT> If you don't, and you are willing to maintain your own patch and source trees, xml-rpc<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:01:54)</FONT> <B>spike:</B></FONT> f3ew: I have, other users might havent. anyway, if I had not patch anything because they all already log to syslog properly, of course I'd go that way<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:02:17)</FONT> <B>spike:</B></FONT> but since I have to patch applications anyway to let them log interesting events to syslog, why not going directly with xml-rpc<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:02:30)</FONT> <B>spike:</B></FONT> why passing from syslog at all, virtually adding more burden to the system<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:02:33)</FONT> <B>f3ew:</B></FONT> spike If applications log, that can go to syslog<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:04:00)</FONT> <B>icblenke:</B></FONT> also remember that syslog isn't guaranteed delivery for most folks.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:04:11)</FONT> <B>icblenke:</B></FONT> syslog messages do get lost.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:04:45)</FONT> <B>f3ew:</B></FONT> Well, that is pretty rare<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:06:58)</FONT> <B>icblenke:</B></FONT> depends on your volume.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:07:11)</FONT> <B>icblenke:</B></FONT> and your syslog daemon.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:07:24)</FONT> <B>icblenke:</B></FONT> and if you use UDP, there's that too.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(17:17:17)</FONT> <B>f3ew:</B></FONT> and your network<BR>
+<FONT SIZE="2">(17:39:57)</FONT> <B>mattimustang [<I>n=mflanaga@o2rosock0a.optus.net.au</I>] entered the room.</B><BR>
+<FONT SIZE="2">(18:11:00)</FONT> <B>glut left the room (quit: Dead socket).</B><BR>
+<FONT SIZE="2">(18:18:56)</FONT> <B>glut [<I>i=glut@no.suid.pl</I>] entered the room.</B><BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:21:01)</FONT> <B>lkanies:</B></FONT> i'm around now<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:21:15)</FONT> <B>lkanies:</B></FONT> but looks like i missed the conversation<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:21:29)</FONT> <B>lkanies:</B></FONT> f3ew: i have channel logs, btw<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:23:27)</FONT> <B>lkanies:</B></FONT> i don't think syslog is rich enough to be a sufficient logging format -- i need a few more fields than syslog provides<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:24:00)</FONT> <B>lkanies:</B></FONT> i mean, sure, i could encode my data into syslog and then parse it back out, and i'll support that (i already do), but why default to that?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:24:29)</FONT> <B>spike:</B></FONT> so what would you suggest? patching third party app you want to plug-in to send xml-rpc stuff to ur server?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:25:09)</FONT> <B>spike:</B></FONT> it's a bit annoying, but can't find any other solution. it's not even easy to maintain the code at some degree, if they heavily change something for example<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:25:45)</FONT> <B>lkanies:</B></FONT> you mean to get other apps logging via the same system?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:26:04)</FONT> <B>lkanies:</B></FONT> i'm not really that concerned about that part of the problem right now, since i'm more focused on just making puppet itself do what makes sense<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:26:18)</FONT> <B>spike:</B></FONT> yeah, sorry, talking of what I'm working one. I need puppet as nagios to send events to it<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:26:30)</FONT> <B>spike:</B></FONT> s/one/on/<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:26:42)</FONT> <B>lkanies:</B></FONT> i want to hook puppet up to the rest of the fabric whenever possible, but i'm willing to expend more effort to make puppet better<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:26:50)</FONT> <B>lkanies:</B></FONT> what do you mean by &quot;events&quot;?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:27:01)</FONT> <B>lkanies:</B></FONT> nagios doesn't really accept events, does it?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:27:50)</FONT> <B>spike:</B></FONT> things appening that are considered worth to see, ie, traffic spike exceeding threshold X, or critical service going down (speaking of nagios)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:28:05)</FONT> <B>spike:</B></FONT> nagios has got an Action thingie who gets event data on stdin<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:28:29)</FONT> <B>spike:</B></FONT> so u can actually plugin nagios into my thing simply coding an action that does the formatting and send the event to the xmlrpc server<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:28:53)</FONT> <B>spike:</B></FONT> same for munin. there things also for svn, to track commits and similar<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:29:09)</FONT> <B>lkanies:</B></FONT> ah<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:29:29)</FONT> <B>lkanies:</B></FONT> yeah, i already plan on creating an xmlrpc server to run on my nagios server, so i can &quot;talk to&quot; nagios<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:29:44)</FONT> <B>lkanies:</B></FONT> nagios is a PITA to connect to anything else, and i want to do things like generate its configs from remote systems<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:30:10)</FONT> <B>lkanies:</B></FONT> so, i'll have an xmlrpc server, and clients will be able to connect to it and say, &quot;please monitor X service on me&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:30:23)</FONT> <B>spike:</B></FONT> oh, cool<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:30:27)</FONT> <B>lkanies:</B></FONT> &quot;and here are the groups i'm in&quot;<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:30:31)</FONT> <B>lkanies:</B></FONT> etc.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:31:07)</FONT> <B>lkanies:</B></FONT> in other words, i'm already planning on wrapping a lot of nagios with my own stuff, so yeah, that's probably what i would choose in this case<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:34:43)</FONT> <B>lkanies:</B></FONT> i've already used cfengine to generate my nagios configs (using naginator, <A HREF="https://reductivelabs.com/projects/naginator/">https://reductivelabs.com/projects/naginator/</A>)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:34:58)</FONT> <B>spike:</B></FONT> yep, I remember that one<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(18:35:11)</FONT> <B>spike:</B></FONT> we had a sort of similar discussion in #cfengine some time ago<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:35:13)</FONT> <B>lkanies:</B></FONT> but it absolutely sucked generating the configs at the edge and then pushing them back up; so, i figure i'll just pass that same info up, and generate them centrally<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:35:15)</FONT> <B>lkanies:</B></FONT> ah, right<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(18:36:21)</FONT> <B>lkanies:</B></FONT> ok, i better go help prepare for the holiday tomorrow<BR>
+
+*$Id: start.page 6 2006-07-02 20:05:14Z luke $*

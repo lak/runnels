@@ -1,0 +1,29 @@
+---
+inMenu: true
+---
+
+Producers
+=========
+* Syslog
+
+  This is really a lot of producers:
+
+  * sshd
+  * imapd
+  * sendmail
+  * etc.
+
+* Netflow probes
+* Nagios alerts
+* SAR stats
+* Cron job execution status
+
+Consumers
+=========
+* Statistics systems (netflow receivers, sar data collectors, cacti)
+* Monitoring systems (nagios, openview, etc)
+* Security monitors (logsurfer)
+* Alerting system
+* Problem tracking system (RT, Trac, etc)
+
+*$Id: examples.page 6 2006-07-02 20:05:14Z luke $*

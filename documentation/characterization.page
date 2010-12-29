@@ -1,0 +1,569 @@
+---
+inMenu: true
+---
+
+An IRC discussion that largely characterizes what Runnels is and
+how it will work:
+
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(13:12:06)</FONT> <B>***f3ew</B></FONT> pokes lkanies <BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:12:15)</FONT> <B>lkanies:</B></FONT> eh? don't poke me<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:12:43)</FONT> <B>laen:</B></FONT> Man, I leave for 18 hours, and I miss a _lot_.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:12:43)</FONT> <B>f3ew:</B></FONT> Oh, I just read the mail thread on the message bus stuff<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:13:15)</FONT> <B>lkanies:</B></FONT> laen: doesn't seem like that much went on in the meantime...<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:13:21)</FONT> <B>lkanies:</B></FONT> f3ew: what do you think? interested?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:13:36)</FONT> <B>lkanies:</B></FONT> have any opinions on what we should use?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:13:36)</FONT> <B>f3ew:</B></FONT> As I see it, you have three issues: The message format, the message envelope and the message transport<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:13:42)</FONT> <B>lkanies:</B></FONT> ayup<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:13:52)</FONT> <B>f3ew:</B></FONT> I would love SMTP, but it isn't bi-directional<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:14:07)</FONT> <B>f3ew:</B></FONT> a) Fix the message format<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:14:13)</FONT> <B>f3ew:</B></FONT> b) Fix the envelope<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:14:23)</FONT> <B>f3ew:</B></FONT> c) The transport can be _anything_<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:14:24)</FONT> <B>icblenke:</B></FONT> well, it _can_ be, kinda. ETRN and all.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:14:35)</FONT> <B>f3ew:</B></FONT> icblenke not always<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:14:58)</FONT> <B>f3ew:</B></FONT> My point is, I should be able to send a message over SMTP and get a response over usenet<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:15:20)</FONT> <B>icblenke:</B></FONT> a response over usenet. that would be.. interesting. ;)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:15:23)</FONT> <B>f3ew:</B></FONT> I should be able to send out a message over a HTTP POST and have a config change delivered via Jabber<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:15:53)</FONT> <B>icblenke:</B></FONT> totally agree<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:15:55)</FONT> <B>lkanies:</B></FONT> yeah, that's a good point<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:16:44)</FONT> <B>f3ew:</B></FONT> Keep in mind that the message envelop is not necessarily the transport envelop<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:17:22)</FONT> <B>lkanies:</B></FONT> yeah, i've been thinking about that, too -- that you'd want the &quot;standard&quot; to include the ability to include multiple objects, which implies talking about the envelope<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:18:04)</FONT> <B>f3ew:</B></FONT> &lt;transport&gt;&lt;message envelope&gt;&lt;message&gt;&lt;/message&gt;&lt;/message envelope&gt;&lt;/transport&gt;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:18:58)</FONT> <B>f3ew:</B></FONT> What the message envelope should be able to do is provide AAA enforcement<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:19:36)</FONT> <B>lkanies:</B></FONT> hmm<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:19:44)</FONT> <B>lkanies:</B></FONT> i haven't thought much about that<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:20:02)</FONT> <B>lkanies:</B></FONT> at the least i've really only been worrying about proving authenticity, rather than restricting access<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:20:19)</FONT> <B>lkanies:</B></FONT> because the whole idea here is that you just dump your data into the stream and anyone who wants can pick it up<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:20:43)</FONT> <B>f3ew:</B></FONT> Well, authorisation could be policy dependent<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:20:53)</FONT> <B>f3ew:</B></FONT> We should not try to set policy<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:20:58)</FONT> <B>lkanies:</B></FONT> what would an auth model look like? would the message generating nodes need to know which nodes they were authorizing? or would they just be authorization domains or something?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:21:16)</FONT> <B>f3ew:</B></FONT> Default policy could be to allow anyone who can authenticate access, but that need not always be the case<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:21:43)</FONT> <B>f3ew:</B></FONT> I am looking at node &lt;-&gt; router and router &lt;-&gt; other node pairs<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:22:06)</FONT> <B>f3ew:</B></FONT> You already do something similar for puppet with the public key stuff<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:27:17)</FONT> <B>f3ew:</B></FONT> Am I making sense?<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(13:27:19)</FONT> <B>***spike</B></FONT> is doing the same thing<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:27:25)</FONT> <B>spike:</B></FONT> with my router msg thingie I mean<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:27:35)</FONT> <B>spike:</B></FONT> don't get what's the point of the third A up there tho<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:27:36)</FONT> <B>f3ew:</B></FONT> spike yes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:27:43)</FONT> <B>f3ew:</B></FONT> accounting<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:27:44)</FONT> <B>spike:</B></FONT> or rather, I don't do/want to do accuonting<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:27:59)</FONT> <B>spike:</B></FONT> yeah, knew the meaning, just don't see the point of doing that in such scenario<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:28:26)</FONT> <B>f3ew:</B></FONT> even if it means just minimal logging of the sort &quot;receievd message M with ID I over transport T: validated&quot;<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:28:40)</FONT> <B>lkanies:</B></FONT> sorry, was on the phone<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:28:44)</FONT> <B>f3ew:</B></FONT> np<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:28:52)</FONT> <B>icblenke:</B></FONT> I really don't like microformats.org, mostly because you're using HTML tags to separate data elements in a way that doesn't semantically describe what the data represents.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:29:02)</FONT> <B>lkanies:</B></FONT> accounting? i thought it was access, authentication, and authorization<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:29:03)</FONT> <B>spike:</B></FONT> oh, well, I do that, but consider it &quot;logging&quot;. <BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:29:15)</FONT> <B>f3ew:</B></FONT> I am actually looking at this as a place where XML might be useful<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(13:29:16)</FONT> <B>spike:</B></FONT> lkanies: nope, Authentication, Authorization and Accounting<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:29:23)</FONT> <B>spike:</B></FONT> that's how u expand AAA<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:29:26)</FONT> <B>icblenke:</B></FONT> RDF appeals to me, if we really must XML.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:29:31)</FONT> <B>lkanies:</B></FONT> that's not how the ldap guys talk about it<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:29:36)</FONT> <B>f3ew:</B></FONT> Who you are, Ehat you can do and What you did<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:29:43)</FONT> <B>f3ew:</B></FONT> What*<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:29:46)</FONT> <B>lkanies:</B></FONT> or at least, that's the way it was years ago<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:29:49)</FONT> <B>lkanies:</B></FONT> when i cared :/<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(13:29:53)</FONT> <B>f3ew:</B></FONT> lkanies networking term<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:30:06)</FONT> <B>spike:</B></FONT> icblenke: what's wrong with xml?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:30:13)</FONT> <B>lkanies:</B></FONT> then how do you classify ip-based access controls?<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(13:30:25)</FONT> <B>f3ew:</B></FONT> lkanies authorization<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:30:34)</FONT> <B>spike:</B></FONT> yep<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:30:44)</FONT> <B>icblenke:</B></FONT> spike: I'm more of a YAML mindset kinda guy. Even raw key/value would make me happy.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:30:45)</FONT> <B>lkanies:</B></FONT> but authorization is after authentication<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:31:01)</FONT> <B>lkanies:</B></FONT> and ip based access control is before it<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(13:31:19)</FONT> <B>spike:</B></FONT> lkanies: without knowing who u're talking to, how do you define what u wanna give it access to?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:31:41)</FONT> <B>lkanies:</B></FONT> spike: because all network connections necessarily have an ip address, and many have host names<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:31:51)</FONT> <B>lkanies:</B></FONT> so the first line of control is whether those are allowed at all<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(13:31:54)</FONT> <B>f3ew:</B></FONT> lkanies not necessarily<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:32:06)</FONT> <B>lkanies:</B></FONT> f3ew: so you're talking about access to the stream itself, not access to the items on the stream?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:32:14)</FONT> <B>lkanies:</B></FONT> how would access be controlled?<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(13:32:20)</FONT> <B>f3ew:</B></FONT> lkanies that is just a rule that says that regardless of authentication, deny access<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:32:38)</FONT> <B>lkanies:</B></FONT> i mean, would you encrypt the messages so only certain keys could read them?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:32:55)</FONT> <B>f3ew:</B></FONT> actually, I would just want to validate the messages<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:33:02)</FONT> <B>icblenke:</B></FONT> wouldn't using the client/server SSL keys suffice? basic public key cryptography?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:33:03)</FONT> <B>lkanies:</B></FONT> no, it's different: IF the ip is allowed, THEN authenticate; IF authentication passes, THEN verify authorization<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:33:11)</FONT> <B>spike:</B></FONT> icblenke: oh, YAML, havent found the time to look into that yet. would you mind commenting pros of YAML over XML?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:33:19)</FONT> <B>f3ew:</B></FONT> so that a random stranger on the web would not be able to send in an invalid message<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:33:35)</FONT> <B>icblenke:</B></FONT> spike: simplicity. primarily. human readable. easy to do in ruby.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:33:36)</FONT> <B>lkanies:</B></FONT> ok; so you're not so much thinking of restricting access to the logs<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(13:33:38)</FONT> <B>f3ew:</B></FONT> lkanies that is a question of order and optimising checking order<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:33:47)</FONT> <B>lkanies:</B></FONT> f3ew: not in any system i've seen<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:33:55)</FONT> <B>lkanies:</B></FONT> no firewall i've ever seen does authenticated ip blocking<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(13:34:05)</FONT> <B>f3ew:</B></FONT> lkanies It doesn't matter<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:34:12)</FONT> <B>lkanies:</B></FONT> it just says, &quot;oh, you're sending traffic from X? Bzzzzt&quot;<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:34:22)</FONT> <B>lkanies:</B></FONT> i agree, i guess<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:34:34)</FONT> <B>f3ew:</B></FONT> Your policy is: regardless of authentication status, disregard any connection from &lt;ip block&gt;<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:34:51)</FONT> <B>lkanies:</B></FONT> let's just drop it<BR>
+<FONT COLOR="#AF7F00" sml="IRC"><FONT SIZE="2">(13:34:52)</FONT> <B>spike:</B></FONT> lkanies: in firewall realm, IP is a mean of authentication, that's how you read it imho<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:34:53)</FONT> <B>f3ew:</B></FONT> So we don't bother about authentication, since we don't care about the result<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:34:56)</FONT> <B>spike:</B></FONT> ehehe, k<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(13:35:12)</FONT> <B>***spike</B></FONT> drops it on f3ew's feet<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(13:35:30)</FONT> <B>***f3ew</B></FONT> drops spike into /dev/null<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(13:35:51)</FONT> <B>***spike</B></FONT> equips himself for a loooooong trip<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:35:56)</FONT> <B>icblenke:</B></FONT> I'm partial to an encryption scheme per message to solve this problem.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:36:16)</FONT> <B>lkanies:</B></FONT> icblenke: that suddenly seems not as simple<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:36:29)</FONT> <B>icblenke:</B></FONT> it also imposes some overhead.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:36:40)</FONT> <B>f3ew:</B></FONT> icblenke If we have keys in place, encryption can be added later. Without having that in the design, modifications will be harder<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:36:45)</FONT> <B>lkanies:</B></FONT> p2p encryption is easy; stream-based encryption, especially when you literally don't even know who you're allowing access to, is less so<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:36:51)</FONT> <B>lkanies:</B></FONT> yeah<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:36:58)</FONT> <B>lkanies:</B></FONT> let's start with keys, and signing, and leave it there for now<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:37:05)</FONT> <B>spike:</B></FONT> damn, gtg. it would be very useful if this discussion was moved to ml... so I could read it<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:37:06)</FONT> <B>f3ew:</B></FONT> Once we figure out the issues, life can get easier<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:37:11)</FONT> <B>f3ew:</B></FONT> Is anyone logging this?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:37:15)</FONT> <B>spike:</B></FONT> or get logged somewhere... I'm definitely interested<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:37:20)</FONT> <B>f3ew:</B></FONT> heh<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:37:23)</FONT> <B>spike:</B></FONT> :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:37:24)</FONT> <B>icblenke:</B></FONT> once you have a symmetric key, the overhead isn't nearly as bad. using asymmetric crypto per message would be mucho overhead.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:37:41)</FONT> <B>f3ew:</B></FONT> icblenke _lets_ get something in there right now<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:37:45)</FONT> <B>icblenke:</B></FONT> logging on.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:37:59)</FONT> <B>f3ew:</B></FONT> and copy what happened earlier into a file please<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:38:11)</FONT> <B>lkanies:</B></FONT> i can post all of the logs from yesterday and today<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:38:11)</FONT> <B>spike:</B></FONT> ok, c you tomorrow guys, have a nice 'eve whatever is there.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:38:14)</FONT> <B>lkanies:</B></FONT> spike: laters<BR>
+<FONT SIZE="2">(13:38:43)</FONT> <B>spike left the room (quit: &quot;gone&quot;).</B><BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:41:40)</FONT> <B>lkanies:</B></FONT> ok<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:41:59)</FONT> <B>lkanies:</B></FONT> so let's start with format<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:42:08)</FONT> <B>lkanies:</B></FONT> i think that, frankly, the format doesn't really matter that much<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:42:18)</FONT> <B>lkanies:</B></FONT> we can change our minds 2 months in, because it's all pretty simple<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:42:35)</FONT> <B>lkanies:</B></FONT> i'll just have to_picoformat methods or whatever, and i can just write new methods pretty easily<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:42:46)</FONT> <B>lkanies:</B></FONT> i'm sure we all agree it will be text and will be human readable<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:42:51)</FONT> <B>f3ew:</B></FONT> yes<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:42:54)</FONT> <B>lkanies:</B></FONT> beyond that, the details just don't matter that much<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:43:01)</FONT> <B>f3ew:</B></FONT> and easily machine parsable<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:43:02)</FONT> <B>lkanies:</B></FONT> and i'm sure we all agree it will basically be key/value pairs<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:43:04)</FONT> <B>lkanies:</B></FONT> yeah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:43:56)</FONT> <B>f3ew:</B></FONT> I like the idea of key/value pairs, but those might not suffice if things start to get complicated<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:44:05)</FONT> <B>lkanies:</B></FONT> so, the questions i have are, will the messages support including other messages?  what metakeys will we have (e.g., format type, format version, signature, source, destination, etc.)?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:44:10)</FONT> <B>lkanies:</B></FONT> i think they'll be fine<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:44:24)</FONT> <B>lkanies:</B></FONT> they work fine for ldap and i've done some ridiculous things there<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:44:41)</FONT> <B>lkanies:</B></FONT> anyone else used ldap much? specifically, the inheritance and classing stuff?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:44:46)</FONT> <B>icblenke:</B></FONT> copied the scrollback. *whew*<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:45:36)</FONT> <B>icblenke:</B></FONT> unfortunately, not really.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:45:38)</FONT> <B>lkanies:</B></FONT> icblenke: i just saved the whole thing in html<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:45:56)</FONT> <B>lkanies:</B></FONT> i've got scrollback from, um, a long time ago, so i figured i'd just post the whole thing when were done<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:46:00)</FONT> <B>f3ew:</B></FONT> me<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:46:11)</FONT> <B>lkanies:</B></FONT> ok, i'll give a quick breakdown<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:46:27)</FONT> <B>lkanies:</B></FONT> basically &quot;objectclasses&quot; in ldap are just a named collection of mandatory and optional fields<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:46:52)</FONT> <B>lkanies:</B></FONT> fields have certain metadata associated: mostly you care about whether they can be single or multivalue, but there are a few other things<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:47:14)</FONT> <B>lkanies:</B></FONT> you can subclass a given objectclass, which just means that you want to add fields to an existing class<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:47:22)</FONT> <B>lkanies:</B></FONT> subclasses cannot remove or modify existing fields<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:47:29)</FONT> <B>lkanies:</B></FONT> it's stupid-easy<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:48:10)</FONT> <B>lkanies:</B></FONT> this is one big difference, i think, between what we want and the microformats guys: they are prioritizing on world-wide exchange, and we only need to prioritize on per-site exchange<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:48:24)</FONT> <B>f3ew:</B></FONT> per _node_ exchange<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:48:31)</FONT> <B>lkanies:</B></FONT> and i can nearly guarantee that people are going to want to create custom classes that aren't much use outside their own sites<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:48:43)</FONT> <B>lkanies:</B></FONT> what i mean is, people will very rarely be exchanging world-wide log or metric data<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:48:59)</FONT> <B>f3ew:</B></FONT> Actually, I would like to see per site software config management classes<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:49:02)</FONT> <B>lkanies:</B></FONT> and the ones that do happen to get exchanged world-wide (like ganglia is doing) will naturally coalesce into a standard<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:49:07)</FONT> <B>f3ew:</B></FONT> but we are so not going the OID route<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:49:11)</FONT> <B>lkanies:</B></FONT> no<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:49:14)</FONT> <B>icblenke:</B></FONT> Is an endpoint globally unique? I like the idea of using GUIDs.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:49:14)</FONT> <B>lkanies:</B></FONT> no stinking oids<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:49:23)</FONT> <B>lkanies:</B></FONT> what do you mean?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:49:33)</FONT> <B>f3ew:</B></FONT> icblenke not necessarily<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:50:01)</FONT> <B>f3ew:</B></FONT> Globally Unique IDs, 128 bit hashes of mac address, ip address, and a few other host parameters<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:50:18)</FONT> <B>icblenke:</B></FONT> also, timestamp.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:50:52)</FONT> <B>f3ew:</B></FONT> yes]<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:50:57)</FONT> <B>lkanies:</B></FONT> yeah, global message ids are a good idea<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:51:15)</FONT> <B>lkanies:</B></FONT> anyone have a wiki up already?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:51:34)</FONT> <B>icblenke:</B></FONT> it makes routing things a bit easier, in that there should be no collisions.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:51:39)</FONT> <B>lkanies:</B></FONT> i can start writing this up, but a wiki seems like a better idea<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:52:10)</FONT> <B>icblenke:</B></FONT> yep. a wiki would be ideal.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:52:39)</FONT> <B>icblenke:</B></FONT> be back soon. need to jet for a bit.<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:52:45)</FONT> <B>lkanies:</B></FONT> hmm, ok<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:55:50)</FONT> <B>lkanies:</B></FONT> i think i'm going to take this opportunity to walk to a coffee shop, then<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:55:56)</FONT> <B>lkanies:</B></FONT> and i can continue the conversation from there<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(13:57:08)</FONT> <B>***f3ew</B></FONT> will go to bed<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(13:57:17)</FONT> <B>***f3ew</B></FONT> has been busy at conference<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:57:31)</FONT> <B>f3ew:</B></FONT> Oh, and can someone _please_ record the Lisa stuff?<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:57:47)</FONT> <B>lkanies:</B></FONT> i'll do my best to get a record<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:57:59)</FONT> <B>lkanies:</B></FONT> but since you and icblenke seem to be the best contributors and neither will be there..<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:58:01)</FONT> <B>f3ew:</B></FONT> ty<BR>
+<FONT COLOR="#16569E" sml="IRC"><FONT SIZE="2">(13:58:03)</FONT> <B>lkanies:</B></FONT> ok<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(13:58:32)</FONT> <B>f3ew:</B></FONT> video would be nice, particularly with good audio and whiteboards captured<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:08:01)</FONT> <B>icblenke:</B></FONT> ok, I just noodled this a bit on the drive over.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:08:22)</FONT> <B>icblenke:</B></FONT> everything we're talking about so far leads me right back to Jabber/XMPP<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:09:02)</FONT> <B>f3ew:</B></FONT> icblenke those are transports<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:09:08)</FONT> <B>icblenke:</B></FONT> we need authentication and encryption. jabber has authentication and SSL/TLS for encryption.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:09:15)</FONT> <B>icblenke:</B></FONT> XMPP has publish/subscribe.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:09:18)</FONT> <B>f3ew:</B></FONT> yes, but that is transport<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:09:36)</FONT> <B>icblenke:</B></FONT> ah. I see what you're saying. I agree then.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:10:01)</FONT> <B>icblenke:</B></FONT> what we need to agree on, then, is that our message bus relies on the transport for end-to-end security and authentication.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:10:09)</FONT> <B>icblenke:</B></FONT> keep the message bus simple.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:10:16)</FONT> <B>f3ew:</B></FONT> for end to end security, yes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:10:34)</FONT> <B>icblenke:</B></FONT> the message bus needs some kind of &quot;command channel&quot; to &quot;subscribe&quot; or &quot;publish&quot; to some endpoint.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:10:34)</FONT> <B>f3ew:</B></FONT> authenticating the message contents itself, not necessarily<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:10:55)</FONT> <B>f3ew:</B></FONT> the message bus config is handled via puppet :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:11:08)</FONT> <B>f3ew:</B></FONT> We can do it inline<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:11:26)</FONT> <B>icblenke:</B></FONT> authenticating the message contents itself would be handled best by something like SDSC secure syslog's &quot;syslog-reliable&quot; (RFC 3195) stuff.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:11:48)</FONT> <B>icblenke:</B></FONT> <A HREF="http://security.sdsc.edu/software/sdsc-syslog/">http://security.sdsc.edu/software/sdsc-syslog/</A><BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:12:04)</FONT> <B>f3ew:</B></FONT> icblenke that was what the whole signature thing above was about<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:12:15)</FONT> <B>icblenke:</B></FONT> missed the signature bit somehow.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:12:26)</FONT> <B>f3ew:</B></FONT> you wanted encryption in there<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:12:43)</FONT> <B>icblenke:</B></FONT> understanding the problem, that seems like a transport issue now.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:12:51)</FONT> <B>f3ew:</B></FONT> right :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:13:06)</FONT> <B>f3ew:</B></FONT> What I want to know is that the message has not been MITM'ed<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:13:12)</FONT> <B>f3ew:</B></FONT> or corrupted<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:13:19)</FONT> <B>icblenke:</B></FONT> wouldn't the transport handle that?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:13:48)</FONT> <B>f3ew:</B></FONT> multi-hop routers?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:13:59)</FONT> <B>f3ew:</B></FONT> Don't assume a single router<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:14:14)</FONT> <B>f3ew:</B></FONT> but transport is only per pair of endpoints<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:14:40)</FONT> <B>icblenke:</B></FONT> a transport should reliably deliver a message in its entirety, in sequential order, no?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:15:12)</FONT> <B>f3ew:</B></FONT> but it does that to the next hop<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:15:15)</FONT> <B>icblenke:</B></FONT> each leg of the route would need that guarantee.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:15:23)</FONT> <B>f3ew:</B></FONT> yes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:15:54)</FONT> <B>f3ew:</B></FONT> and having the last thing check a signature should have a second test built in to ensure that things work<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:16:15)</FONT> <B>f3ew:</B></FONT> You know, we are reinventing the internet here :)<BR>
+<FONT SIZE="2">(14:16:42)</FONT> <B>laktop [<I>n=luke@c-69-180-218-163.hsd1.tn.comcast.net</I>] entered the room.</B><BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:17:00)</FONT> <B>icblenke:</B></FONT> if the transport is reliable, why check at all? seems like unneccesary overhead.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:17:25)</FONT> <B>f3ew:</B></FONT> because the intermediate hosts may not be<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:18:05)</FONT> <B>icblenke:</B></FONT> lets talk about segmentation and reassembly: where would the resend requests be initated from? the endpoint queue runner?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:18:25)</FONT> <B>icblenke:</B></FONT> so we're looking for publish, subscribe, and resend messages in the control channel now.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:18:45)</FONT> <B>laktop:</B></FONT> f3ew: i thought you were going to bed<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:18:56)</FONT> <B>f3ew:</B></FONT> node A -&gt; router A, validate and possible reassembly -&gt; router B -&gt; router C -&gt; node B (validate)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:19:01)</FONT> <B>laktop:</B></FONT> and how the heck do i do tab completion in x-chat?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:19:08)</FONT> <B>f3ew:</B></FONT> f&lt;tab&gt;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:19:22)</FONT> <B>f3ew:</B></FONT> type the first character<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:19:22)</FONT> <B>laktop:</B></FONT> nope, it just selects everything i've typed<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:19:32)</FONT> <B>laktop:</B></FONT> oh well, must be an xchat-on-osx problem<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:19:45)</FONT> <B>icblenke:</B></FONT> segmentation/reassembly of a message would be a transport thing. I'm thinking streams to messages.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:20:01)</FONT> <B>laktop:</B></FONT> why would you even need to worry about segmentation?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:20:09)</FONT> <B>laktop:</B></FONT> i obviously missed a bit, sorry<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:20:25)</FONT> <B>icblenke:</B></FONT> that would be an agent thing then. no worries.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:21:19)</FONT> <B>laktop:</B></FONT> can someone explain to me what i missed in the 7 minute walk here?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:21:40)</FONT> <B>icblenke:</B></FONT> a message gets sent, makes it to a router, and the router crashes taking the message with it. when it comes back up, the sequence is interrupted, and the sending end times out waiting for the next message in the sequence.. it needs to ask the sending agent for the message again.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:21:53)</FONT> <B>f3ew:</B></FONT> laktop got that?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:21:58)</FONT> <B>laktop:</B></FONT> ok<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:22:22)</FONT> <B>laktop:</B></FONT> it already feels like this is getting too complicated<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:22:29)</FONT> <B>icblenke:</B></FONT> we're really talking about a &quot;stream&quot; at this point. ala TCP.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:22:34)</FONT> <B>laktop:</B></FONT> but that does seem like an important thing<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:22:45)</FONT> <B>icblenke:</B></FONT> reliable sequential delivery of messages.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:22:52)</FONT> <B>laktop:</B></FONT> OTOH, that means that sequence numbers have to map directly to subscriptions<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:23:20)</FONT> <B>laktop:</B></FONT> that is, if host A subscribes to all log messages from puppet, then there needs to be a clear way for host B to sequence its puppet log messages such that host A always knows if it got everything<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:23:51)</FONT> <B>icblenke:</B></FONT> if host B is missing something, it needs a way to ask host A to resend it.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:23:53)</FONT> <B>laktop:</B></FONT> and i can't always get more specific: only subscribe to puppet error messages from the DNS class<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:24:07)</FONT> <B>f3ew:</B></FONT> Uh, no<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:24:08)</FONT> <B>icblenke:</B></FONT> this also means that host A needs to keep some buffer of messages around to be resent.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:24:10)</FONT> <B>laktop:</B></FONT> but generally, sequence numbers will be the only way for it to know it missed something<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:24:29)</FONT> <B>f3ew:</B></FONT> oh, sorry, I misread<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:24:31)</FONT> <B>laktop:</B></FONT> f3: what do you mean, no<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:24:58)</FONT> <B>f3ew:</B></FONT> I read that as hosts A and B sending messages to the router and needing to sync<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:25:10)</FONT> <B>laktop:</B></FONT> ah; ok<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:25:20)</FONT> <B>icblenke:</B></FONT> is a router aware of subscriptions?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:25:24)</FONT> <B>f3ew:</B></FONT> icblenke I want to be able to ignore transport issues right now<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:25:38)</FONT> <B>icblenke:</B></FONT> but it's not a transport issue, really.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:25:42)</FONT> <B>f3ew:</B></FONT> Well, a router pushes stuff somewhere else<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:25:57)</FONT> <B>icblenke:</B></FONT> a transport issue would be between each leg of the route through various routers<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:25:59)</FONT> <B>f3ew:</B></FONT> the why is not important<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:26:02)</FONT> <B>laktop:</B></FONT> i think that, by far, the default case is that messages will be independent of each other other than time<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:26:09)</FONT> <B>f3ew:</B></FONT> yes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:26:14)</FONT> <B>laktop:</B></FONT> i would say that the router is exactly where you would have your subscriptions<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:26:35)</FONT> <B>laktop:</B></FONT> so let's focus on the why, and if we simply guarantee message delivery in order by time, then we've got that<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:26:45)</FONT> <B>laktop:</B></FONT> rather, we've got the majority of cases<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:27:04)</FONT> <B>icblenke:</B></FONT> we dont want to miss messages though. is transport enough to guarantee that end to end?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:27:16)</FONT> <B>f3ew:</B></FONT> laktop think of it like this: The primary job of the router is to push messages. It does this by looking at a routing table. We can have local config entries (static routes/push) and externally learnt routes (subscriptions)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:27:29)</FONT> <B>laktop:</B></FONT> well, we'll be using tcp end to end, and then each daemon is responsible for sending out each message it receives<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:27:35)</FONT> <B>icblenke:</B></FONT> is it ok for a router to &quot;go down&quot; and take messages with it?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:28:06)</FONT> <B>f3ew:</B></FONT> icblenke that is why we queue<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:28:19)</FONT> <B>laktop:</B></FONT> f3ew: yeah, that makes sense, so the router needs subscription methods and static route configs<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:28:28)</FONT> <B>laktop:</B></FONT> icblenke: yeah, i think that's basically a solved problem<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:28:55)</FONT> <B>laktop:</B></FONT> store queued messages on disk, and don't delete them from the queue until you've confirmed they're correctly sent<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:28:59)</FONT> <B>icblenke:</B></FONT> so an agent on host A sends out a &quot;publish&quot; message to the router for some &quot;resource namespace&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:29:05)</FONT> <B>laktop:</B></FONT> of course, &quot;sent&quot; is weird here, because it could be to tons of hosts<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:29:16)</FONT> <B>f3ew:</B></FONT> laktop but that management has nothing to do with the &quot;router&quot; part being aware of transports. It doesn't care about why, only how<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:29:17)</FONT> <B>icblenke:</B></FONT> and an agent on host B sends out a &quot;subscribe&quot; message to the router for that resource name<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:29:27)</FONT> <B>f3ew:</B></FONT> laktop SMTP<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:29:43)</FONT> <B>f3ew:</B></FONT> We have a respose code which indicates message accepted<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:29:51)</FONT> <B>f3ew:</B></FONT> icblenke BGP<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:29:55)</FONT> <B>laktop:</B></FONT> f3ew: i didn't mean to imply it wasn't solved, just that it's a slightly more complicated version<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(14:30:04)</FONT> <B>***f3ew</B></FONT> repeats his assertion about reinventing the Internet<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:30:18)</FONT> <B>laktop:</B></FONT> yeah, i share the concern<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:30:30)</FONT> <B>f3ew:</B></FONT> We need to back down<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:30:35)</FONT> <B>laktop:</B></FONT> that's why i'm much more interested in something that works a little right away than something huge<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:30:50)</FONT> <B>f3ew:</B></FONT> What do we want/need?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:31:00)</FONT> <B>f3ew:</B></FONT> want: AAA<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:31:07)</FONT> <B>f3ew:</B></FONT> need: authentication<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:31:12)</FONT> <B>laktop:</B></FONT> ah, ok<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:31:28)</FONT> <B>icblenke:</B></FONT> I need to transport events: syslog, netflow, stats, etc, reliably, from collectors to a central aggregator.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:31:47)</FONT> <B>laktop:</B></FONT> i need to subscribe to events from other nodes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:31:57)</FONT> <B>laktop:</B></FONT> and i need those events to be relatively reliably sent to me<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:32:14)</FONT> <B>laktop:</B></FONT> 99.9% or whatever; i don't mind missing a few here and there<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:32:38)</FONT> <B>laktop:</B></FONT> i need to subscribe to event types<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:02)</FONT> <B>icblenke:</B></FONT> I'd like nagios alerts as well. Take all of those alert event sources, and run them through something like SEC to alert me when something goes wrong. Take all of the stats messages and process them on a stats server for display.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:07)</FONT> <B>laktop:</B></FONT> i want to subscribe to objects based on field values and substrings, e.g., &quot;field X =~ /dns/i&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:24)</FONT> <B>laktop:</B></FONT> icblenke: can you restate that?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:43)</FONT> <B>icblenke:</B></FONT> as admins we have a number of basic problems.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:48)</FONT> <B>icblenke:</B></FONT> monitoring and alerting.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:59)</FONT> <B>f3ew:</B></FONT> icblenke nagios would be in the etc<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:33:59)</FONT> <B>icblenke:</B></FONT> statistics and trending.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:34:05)</FONT> <B>laktop:</B></FONT> logging<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:34:06)</FONT> <B>f3ew:</B></FONT> security<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:34:06)</FONT> <B>icblenke:</B></FONT> right.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:34:34)</FONT> <B>icblenke:</B></FONT> I'd like to be able to have a nagios alert event trigger a ticket getting opened in RT<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:34:42)</FONT> <B>icblenke:</B></FONT> well.. more specifically..<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:34:43)</FONT> <B>laktop:</B></FONT> ok<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:00)</FONT> <B>icblenke:</B></FONT> I'd like to be able to have SEC process a Nagios alert, and then have it send a message to have a ticket opened in RT.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:02)</FONT> <B>laktop:</B></FONT> that's easy: you write a custom node that subscribes to nagios alerts and knows how to open RT tickets<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:07)</FONT> <B>f3ew:</B></FONT> Ok, what we want is an interface to accept events, where an event is defined as a message from an external service<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:13)</FONT> <B>f3ew:</B></FONT> laktop hang on<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:17)</FONT> <B>laktop:</B></FONT> ...?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:22)</FONT> <B>f3ew:</B></FONT> Lets define the problem scope first<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:29)</FONT> <B>f3ew:</B></FONT> then we look at solutions<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:46)</FONT> <B>laktop:</B></FONT> ok<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:35:52)</FONT> <B>icblenke:</B></FONT> I'd also like to transport syslog, netflow, SAR, etc data over a bus to an aggregator that can provide a central location for stats viewing.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:36:06)</FONT> <B>f3ew:</B></FONT> Once the event is accepted, we convert it to a standard format.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:36:24)</FONT> <B>laktop:</B></FONT> icblenke: do you want to statically route them there, or do you want the aggregator to subscribe to them?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:36:27)</FONT> <B>f3ew:</B></FONT> This is then sent to a number (one or more) of actors<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:36:44)</FONT> <B>icblenke:</B></FONT> I would also like to start pushing configuration events to servers from a central repository.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:36:46)</FONT> <B>f3ew:</B></FONT> Each actor can do different actions<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:36:51)</FONT> <B>f3ew:</B></FONT> icblenke please!<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:36:51)</FONT> <B>laktop:</B></FONT> f3ew: i'm not convinced that we should accept events in anything other than our standard format<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:37:06)</FONT> <B>f3ew:</B></FONT> laktop at the router, yes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:37:09)</FONT> <B>laktop:</B></FONT> hmm<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:37:18)</FONT> <B>f3ew:</B></FONT> but you still want a conversion utility somehwere<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:37:38)</FONT> <B>icblenke:</B></FONT> the agents that publish some resource should have a format that subscribers are aware of.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:37:45)</FONT> <B>laktop:</B></FONT> ok; we talk about how it would be done, and maybe have some example implementations, but don't consider it to be part of the main runnels core<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:38:13)</FONT> <B>f3ew:</B></FONT> event generator --&gt; event acceptor ---&gt; event convertor --&gt; router --&gt; &lt;various actors&gt;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:38:20)</FONT> <B>f3ew:</B></FONT> right<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:38:23)</FONT> <B>laktop:</B></FONT> yeah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:38:36)</FONT> <B>f3ew:</B></FONT> acceptor and convertor are application/input format specific<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:38:38)</FONT> <B>laktop:</B></FONT> and event generators obviously could just convert and send them directly<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:38:49)</FONT> <B>f3ew:</B></FONT> right<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:38:51)</FONT> <B>laktop:</B></FONT> which, i expect, is the ultimate goal<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:38:56)</FONT> <B>f3ew:</B></FONT> Not _out_ headache<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:38:59)</FONT> <B>f3ew:</B></FONT> our*<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:39:02)</FONT> <B>laktop:</B></FONT> and certainly is what puppet will do<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:39:03)</FONT> <B>laktop:</B></FONT> yeah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:39:31)</FONT> <B>f3ew:</B></FONT> once it gets to the router, we need to be able to figure out where the message needs to go, and send it to all of them<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:39:32)</FONT> <B>laktop:</B></FONT> one would expect that part of the overalll package will include a daemon that does tons of different conversions in either direction<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:39:36)</FONT> <B>laktop:</B></FONT> yeah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:39:41)</FONT> <B>f3ew:</B></FONT> this needs to get acks from each node<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:39:55)</FONT> <B>icblenke:</B></FONT> eventually. <BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:39:58)</FONT> <B>laktop:</B></FONT> does it need acks? for every message?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:39:59)</FONT> <B>f3ew:</B></FONT> laktop or just a bunch of scripts<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:40:28)</FONT> <B>f3ew:</B></FONT> an ack can be just a simple numeric code<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:40:30)</FONT> <B>icblenke:</B></FONT> I thought the transport was going to handle that?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:40:33)</FONT> <B>laktop:</B></FONT> f3ew: i'm fine not talking about implementations, but i don't think it'll be too hard to have a module interface that, say, makes it easy to inter-convert any messages of the same type<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:41:15)</FONT> <B>laktop:</B></FONT> i actually already know how i'd do it in ruby<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:41:16)</FONT> <B>f3ew:</B></FONT> laktop yes. but if you have a structured format, you would need heavy duty scripting to convert syslog to that<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:41:47)</FONT> <B>f3ew:</B></FONT> Also, the convertor signs the message before sending it to the router<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:42:09)</FONT> <B>laktop:</B></FONT> okay, so our messages _need_ to be signed, or we prefer they're signed?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:42:14)</FONT> <B>icblenke:</B></FONT> why not make a &quot;convertor&quot; just another agent?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:42:21)</FONT> <B>laktop:</B></FONT> yeah, that's what i'm thinking<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:42:35)</FONT> <B>icblenke:</B></FONT> an agent that knows how to subscribe to one format and output another.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:42:43)</FONT> <B>f3ew:</B></FONT> icblenke yes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:43:06)</FONT> <B>f3ew:</B></FONT> but for our immediate convenience, I would like to describe them slightly differently<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:43:21)</FONT> <B>laktop:</B></FONT> ok<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:43:31)</FONT> <B>f3ew:</B></FONT> a convertor and acceptor would generally be implemented as a single component<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:43:55)</FONT> <B>icblenke:</B></FONT> with a producer and a consumer aspect to it.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:04)</FONT> <B>laktop:</B></FONT> let's just ignore that for now<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:19)</FONT> <B>f3ew:</B></FONT> right<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:27)</FONT> <B>f3ew:</B></FONT> now, do we need acks?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:30)</FONT> <B>laktop:</B></FONT> we know there will be some kind of accepter/converter, and it will almost definitely work both ways<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:36)</FONT> <B>laktop:</B></FONT> i say the acks are part of the protocol<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:41)</FONT> <B>f3ew:</B></FONT> or do we rely on the transport layer to tell us if that worked<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:44)</FONT> <B>laktop:</B></FONT> not part of the messages<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:49)</FONT> <B>f3ew:</B></FONT> yes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:44:56)</FONT> <B>f3ew:</B></FONT> right, so it gets shoved out<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:45:17)</FONT> <B>laktop:</B></FONT> i don't know if it gets pushed down into the transport<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:45:24)</FONT> <B>f3ew:</B></FONT> Ok, now, what happens if we get duplicate messages?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:45:25)</FONT> <B>icblenke:</B></FONT> quandry: would more than one host publish the same resource name?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:45:36)</FONT> <B>f3ew:</B></FONT> no<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:45:42)</FONT> <B>laktop:</B></FONT> what? hell yeah they would<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:45:48)</FONT> <B>f3ew:</B></FONT> resource name would include hostnames and ips<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:45:53)</FONT> <B>laktop:</B></FONT> well, depending on how you define resource<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:45:55)</FONT> <B>icblenke:</B></FONT> ie, would more than one host publish a &quot;syslog&quot; resource?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:46:01)</FONT> <B>laktop:</B></FONT> definitely<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:46:08)</FONT> <B>f3ew:</B></FONT> Yes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:46:16)</FONT> <B>laktop:</B></FONT> well wait; what is this &quot;resource&quot; we're talking about?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:46:18)</FONT> <B>icblenke:</B></FONT> would a consumer then get messages from mutliple &quot;syslog&quot; producers?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:46:27)</FONT> <B>laktop:</B></FONT> we have producers, consumers, and messages; what's a resource?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:46:35)</FONT> <B>laktop:</B></FONT> icblenke: definitely<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:46:42)</FONT> <B>icblenke:</B></FONT> a resource is the thing published or subscribed to.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:46:42)</FONT> <B>f3ew:</B></FONT> resource syslog { name = $hostname-$service; router = $router; }<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:03)</FONT> <B>f3ew:</B></FONT> an event<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:05)</FONT> <B>laktop:</B></FONT> wouldn't that be a resource type? &quot;I want all things related to syslog&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:08)</FONT> <B>icblenke:</B></FONT> a type of event.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:12)</FONT> <B>f3ew:</B></FONT> or rather, the type of event<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:18)</FONT> <B>laktop:</B></FONT> then say &quot;type&quot;, not resource<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:27)</FONT> <B>f3ew:</B></FONT> yup<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:29)</FONT> <B>icblenke:</B></FONT> a specific event would be an accourance of a message published to a resource.<BR>
+<FONT COLOR="#062585" sml="IRC"><FONT SIZE="2">(14:47:34)</FONT> <B>***laktop</B></FONT> hates terminology confusion<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:35)</FONT> <B>icblenke:</B></FONT> occourance.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:40)</FONT> <B>icblenke:</B></FONT> whatever.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:47:53)</FONT> <B>laktop:</B></FONT> and i think we should stick to &quot;message&quot;, not &quot;event&quot;, because &quot;event&quot; will be one of our message types<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:48:01)</FONT> <B>icblenke:</B></FONT> a specific event is then a message published to a type?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:48:14)</FONT> <B>laktop:</B></FONT> i don't have any idea what you're talking about :/<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:48:22)</FONT> <B>laktop:</B></FONT> i don't know what &quot;published to a type&quot; means<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:48:25)</FONT> <B>icblenke:</B></FONT> what is a &quot;type&quot;?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:48:41)</FONT> <B>icblenke:</B></FONT> I think of those two things as wholely separate.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:48:43)</FONT> <B>laktop:</B></FONT> i create a message; it has a &quot;type&quot; field; that type field can be things like &quot;log&quot;, &quot;metric&quot;, &quot;alert&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:48:57)</FONT> <B>laktop:</B></FONT> i drop that message on the runnel bus<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:49:07)</FONT> <B>laktop:</B></FONT> it gets routed to people who are subscribed to it<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:49:12)</FONT> <B>laktop:</B></FONT> s/people/consumers/<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:49:20)</FONT> <B>icblenke:</B></FONT> so you're publishing a &quot;metric&quot;, which will be consumed by anyone subscribing to a &quot;metric&quot;?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:49:46)</FONT> <B>laktop:</B></FONT> yes, except i would describe the subscription as specifying both the field and the value<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:49:53)</FONT> <B>laktop:</B></FONT> so the subscription is &quot;type == metric&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:49:57)</FONT> <B>icblenke:</B></FONT> so a message has a source and a type, no destination.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:26)</FONT> <B>icblenke:</B></FONT> I see what you're saying.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:34)</FONT> <B>laktop:</B></FONT> that would be my preference<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:46)</FONT> <B>icblenke:</B></FONT> make the subscription a logical construct that can specify various qualities of a message.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:48)</FONT> <B>laktop:</B></FONT> i think that destinations could be provided through things like static routes in the router<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:50:52)</FONT> <B>laktop:</B></FONT> exactly<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:06)</FONT> <B>f3ew:</B></FONT> laktop you need one destination: the forst router<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:08)</FONT> <B>icblenke:</B></FONT> that'd work.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:08)</FONT> <B>f3ew:</B></FONT> first*<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:18)</FONT> <B>laktop:</B></FONT> and if you want to allow complicated things like pattern matching, that's great, but we don't need it<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:30)</FONT> <B>icblenke:</B></FONT> does the message really need to point to a router? that sounds like a transport thing.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:38)</FONT> <B>laktop:</B></FONT> f3ew: well, you need someone to dump your message to; i don't know if that's the same thing as a destination<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:41)</FONT> <B>laktop:</B></FONT> yeah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:44)</FONT> <B>f3ew:</B></FONT> f3ew Ok, what we want is an interface to accept events, where an event is defined as a message from an external service<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:51)</FONT> <B>laktop:</B></FONT> what we need is something like an MX record<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:59)</FONT> <B>f3ew:</B></FONT> Uh, no<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:51:59)</FONT> <B>laktop:</B></FONT> some way of determining who we send _all_ messages to<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:14)</FONT> <B>icblenke:</B></FONT> sounds like a configuration detail.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:18)</FONT> <B>f3ew:</B></FONT> just use SRV records in DNS<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:22)</FONT> <B>f3ew:</B></FONT> yup<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:25)</FONT> <B>icblenke:</B></FONT> MX records are configuration details moved to a global namespace.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:27)</FONT> <B>laktop:</B></FONT> i'm not saying we literally need a dns record<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:47)</FONT> <B>f3ew:</B></FONT> implementation, not design there<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:52:58)</FONT> <B>laktop:</B></FONT> i'm just saying that the message producers need some way to figure out who to send messages to, and they need to send all of their messages there, and that's all they need<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:53:10)</FONT> <B>f3ew:</B></FONT> right<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:53:13)</FONT> <B>icblenke:</B></FONT> IN SRV PUPPET ROUTER madhatter<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:53:16)</FONT> <B>f3ew:</B></FONT> a default route, if you will<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:53:23)</FONT> <B>laktop:</B></FONT> no, because it obviates the need for a destination<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:53:25)</FONT> <B>laktop:</B></FONT> exactly<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:53:29)</FONT> <B>icblenke:</B></FONT> heh.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:53:30)</FONT> <B>laktop:</B></FONT> a default runnel :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:53:43)</FONT> <B>f3ew:</B></FONT> icblenke routers, not SMTP servers ;)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:54:31)</FONT> <B>icblenke:</B></FONT> message producers need some way to identify the content they are sending uniquely enough for a consumer to identify that it wants to get that message.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:54:53)</FONT> <B>laktop:</B></FONT> icblenke: i think that's inline to the message<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:55:04)</FONT> <B>icblenke:</B></FONT> to that end, if you're using an expressive subscribe syntax, you could key off of _anything_ in the message.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:55:09)</FONT> <B>f3ew:</B></FONT> icblenke message ids<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:55:12)</FONT> <B>laktop:</B></FONT> that is, you wouldn't say, &quot;this message is of type log&quot; when it has a &quot;type = syslog&quot; field<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:55:29)</FONT> <B>laktop:</B></FONT> like we said, messages are just key/value pairs<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:55:36)</FONT> <B>laktop:</B></FONT> and one of the key/value pairs will be the message type<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:55:38)</FONT> <B>icblenke:</B></FONT> but if I wanted &quot;type == syslog &amp;&amp; version = 1&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:55:43)</FONT> <B>f3ew:</B></FONT> icblenke a consumer indicates a wish to get messages of a certain type<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:55:44)</FONT> <B>icblenke:</B></FONT> er, ==1.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:55:47)</FONT> <B>laktop:</B></FONT> and if we were to follow ldap then we could have multiple types<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:55:51)</FONT> <B>f3ew:</B></FONT> then it gets them all<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:55:52)</FONT> <B>laktop:</B></FONT> icblenke: that would be fine<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:56:24)</FONT> <B>laktop:</B></FONT> the more i think i about it the more i like the text portions of ldap as a solution<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:56:33)</FONT> <B>laktop:</B></FONT> their querying isn't a bad way to do it<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:56:36)</FONT> <B>icblenke:</B></FONT> because my agent would be coded to understand version 1 syslog events. when we come out with version 2 events that add something that breaks version 1 event processing, we would need to upgrade that agent.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:56:47)</FONT> <B>laktop:</B></FONT> obviously don't use their transport or protocol or heirarchies or names<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:56:56)</FONT> <B>icblenke:</B></FONT> obviously. ;)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:57:08)</FONT> <B>laktop:</B></FONT> but the inheritance and querying expressions aren't bad, and i definitely like having someone to copy<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:57:15)</FONT> <B>icblenke:</B></FONT> OIDs and ASN.. ick.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:57:28)</FONT> <B>laktop:</B></FONT> icblenke: no, we skip all the x.500 crap<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:57:32)</FONT> <B>laktop:</B></FONT> *shudder*<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:57:39)</FONT> <B>f3ew:</B></FONT> think Postfix config<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:57:45)</FONT> <B>f3ew:</B></FONT> or Exim<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:57:57)</FONT> <B>laktop:</B></FONT> to the human, it would look a lot like ldap, but to the computer it would look like http or smtp or something<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:58:13)</FONT> <B>f3ew:</B></FONT> Actually, it would look like key = value to both<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:58:19)</FONT> <B>f3ew:</B></FONT> :P<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:58:23)</FONT> <B>laktop:</B></FONT> you know what i mean, tho<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:58:30)</FONT> <B>f3ew:</B></FONT> yes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:58:54)</FONT> <B>f3ew:</B></FONT> Ok, back to original thread<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:58:59)</FONT> <B>icblenke:</B></FONT> never really mastered ldap expressions myself.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:59:36)</FONT> <B>laktop:</B></FONT> they're stupid easy, esp. for default cases == &quot;field=value&quot;<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(14:59:42)</FONT> <B>laktop:</B></FONT> ok<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:00:14)</FONT> <B>laktop:</B></FONT> so, we have our messages, we have producers and consumers, and we have converters that accept non-runnel messages and convert them to runnel messages and add them to the runnel stream<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:00:21)</FONT> <B>icblenke:</B></FONT> if regex is supported, I'd be even happier.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:00:26)</FONT> <B>laktop:</B></FONT> we have runnel routers, and we can subscribe to those runnel routers<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:00:44)</FONT> <B>laktop:</B></FONT> icblenke: that's a good point, in terms of not copying ldap, although who's regexes? :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:00:59)</FONT> <B>icblenke:</B></FONT> true ;)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:01:16)</FONT> <B>laktop:</B></FONT> is there any other part of the system we've discussed?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:02:18)</FONT> <B>laktop:</B></FONT> is there a special term we could apply to the messages? i keep thinking of little boats floating on the stream<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:02:29)</FONT> <B>laktop:</B></FONT> &quot;microbarge&quot; :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:02:45)</FONT> <B>icblenke:</B></FONT> I called my producers Feed, and my consumers Eat, and the messages Food.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:03:16)</FONT> <B>laktop:</B></FONT> you, my friend, need to learn the difference between verbs and nouns :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:03:28)</FONT> <B>icblenke:</B></FONT> heh.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:04:27)</FONT> <B>laktop:</B></FONT> i think generic terms suffice for nearly everything except the overall system and the format types<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:04:53)</FONT> <B>laktop:</B></FONT> in other words, we can't just say, &quot;convert your event to our message type&quot;, we need to be able to say &quot;convert it to a runnel&quot; or whatever<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:05:06)</FONT> <B>laktop:</B></FONT> i guess we could just call them runnel messages for now<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:05:15)</FONT> <B>icblenke:</B></FONT> &quot;run runnel&quot;.. very logan's run.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:05:19)</FONT> <B>laktop:</B></FONT> he<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:05:22)</FONT> <B>laktop:</B></FONT> uh, heh<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:05:42)</FONT> <B>f3ew:</B></FONT> Ok: event --&gt; something that causes the generation of a message, message --&gt; formatted and parsable information carrying &quot;packet&quot;, acceptor --&gt; something that notes the occurence of an event and generates a suitable message, convertor --&gt; stuff that takes input from the acceptor and converts it to the required format<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:05:54)</FONT> <B>f3ew:</B></FONT> router --&gt; stuff that actually sends &quot;packets&quot; elsewhere<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:06:21)</FONT> <B>laktop:</B></FONT> f3ew: that's perfect<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:07:34)</FONT> <B>f3ew:</B></FONT> consumer --&gt; stuff that accepts messages from a router as a final destination and processes them<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:07:47)</FONT> <B>icblenke:</B></FONT> indie baby?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:07:50)</FONT> <B>laktop:</B></FONT> s/and processes them//<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:07:58)</FONT> <B>laktop:</B></FONT> it can just throw them away, we don't care<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:07:59)</FONT> <B>f3ew:</B></FONT> yeah<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:08:16)</FONT> <B>f3ew:</B></FONT> that is still processing, but lets call that a processor<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:08:27)</FONT> <B>laktop:</B></FONT> and one of the things a consumer can do is convert them to an outgoing message type (e.g., snmp) and pass it along in that way<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:08:53)</FONT> <B>laktop:</B></FONT> and i know at least some people will want that<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:08:55)</FONT> <B>f3ew:</B></FONT> laktop yes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:09:02)</FONT> <B>f3ew:</B></FONT> but that isn't really relevant<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:09:09)</FONT> <B>f3ew:</B></FONT> the arrival of the message is an event<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:09:18)</FONT> <B>f3ew:</B></FONT> and that triggers a new chain<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:09:23)</FONT> <B>laktop:</B></FONT> well, your definition of &quot;converter&quot; implies they're only incoming, but there will also be outgoing converters, too<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:10:29)</FONT> <B>f3ew:</B></FONT> Ok, the terminology is defined<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:10:40)</FONT> <B>laktop:</B></FONT> great<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:10:52)</FONT> <B>f3ew:</B></FONT> event -&gt; acceptor -&gt; convertor -&gt; router -&gt; consumer -&gt; processor<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:11:05)</FONT> <B>laktop:</B></FONT> ok<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:11:10)</FONT> <B>f3ew:</B></FONT> a processors output is an action<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:11:21)</FONT> <B>laktop:</B></FONT> i wouldn't go past the processor<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:11:21)</FONT> <B>f3ew:</B></FONT> event -&gt; acceptor -&gt; convertor -&gt; router -&gt; consumer -&gt; processor -&gt; action<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:11:31)</FONT> <B>f3ew:</B></FONT> Events result in actions<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:11:42)</FONT> <B>f3ew:</B></FONT> which might be null<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:11:45)</FONT> <B>laktop:</B></FONT> i'm uncomfortable with that claim<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:11:51)</FONT> <B>f3ew:</B></FONT> why?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:12:13)</FONT> <B>laktop:</B></FONT> i just don't know that it's necessary for this discussion<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:12:25)</FONT> <B>f3ew:</B></FONT> we processed a message that a disk was 2% full, and acted to take no further action :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:12:35)</FONT> <B>laktop:</B></FONT> yeah, but i think you'll have a lot of those<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:12:42)</FONT> <B>f3ew:</B></FONT> It isn't. It just completes the whole message bus thing<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:12:48)</FONT> <B>f3ew:</B></FONT> who cares?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:13:05)</FONT> <B>kevc:</B></FONT> obviously the solution is just to put the messages over irc anyway<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:13:06)</FONT> <B>laktop:</B></FONT> i'll trust you on this one, because i'm ignorant here and you sure sound like you know what you're talking about, but i'm still hesitant<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:13:14)</FONT> <B>f3ew:</B></FONT> rather than having some events having actions, they all have actions<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:13:14)</FONT> <B>laktop:</B></FONT> kevc: you're fired<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:13:18)</FONT> <B>kevc:</B></FONT> :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:13:39)</FONT> <B>laktop:</B></FONT> kevc: although i can guarantee that i'll have an irc consumer early on<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:13:48)</FONT> <B>laktop:</B></FONT> irc is a great notification system<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:14:01)</FONT> <B>kevc:</B></FONT> it is useful, yes<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:14:18)</FONT> <B>f3ew:</B></FONT> laktop It keeps things consistent<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:14:27)</FONT> <B>f3ew:</B></FONT> nothing more<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:14:42)</FONT> <B>kevc:</B></FONT> it's a horrible protocol, but it does somehow tend to work<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:14:56)</FONT> <B>laktop:</B></FONT> f3ew: like i said, i'll follow you're lead here<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:15:17)</FONT> <B>laktop:</B></FONT> f3ew: do you want to send the definitions to the list, or do you want me to?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:15:35)</FONT> <B>laktop:</B></FONT> hmm<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:15:46)</FONT> <B>laktop:</B></FONT> trac has a wiki, and i can get a trac instance up real fast<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:15:50)</FONT> <B>laktop:</B></FONT> should i do that?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:17:23)</FONT> <B>laktop:</B></FONT> *crickets*<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:17:32)</FONT> <B>icblenke:</B></FONT> work intervenes.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:17:39)</FONT> <B>laktop:</B></FONT> damn work!<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:17:48)</FONT> <B>laktop:</B></FONT> fortunately, my boss says this is my job right now<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:17:57)</FONT> <B>icblenke:</B></FONT> yeah. damn your boss.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:18:27)</FONT> <B>icblenke:</B></FONT> working for yourself is hard, your boss is a tyrant.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:18:54)</FONT> <B>laktop:</B></FONT> yep<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:19:27)</FONT> <B>laktop:</B></FONT> i sure hope this client in pdx turns out<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:19:37)</FONT> <B>laktop:</B></FONT> i'm thinking i should take down that post about bladelogic just because of that<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:20:01)</FONT> <B>laktop:</B></FONT> f3ew: i dunno if you saw this, but check <A HREF="http://madstop.com">http://madstop.com</A><BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:22:02)</FONT> <B>icblenke:</B></FONT> while it's ok to vent, it rarely helps to do it in a public place.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:22:24)</FONT> <B>laktop:</B></FONT> i don't think of the post as venting<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:22:35)</FONT> <B>laktop:</B></FONT> i don't know exactly what i do think of it as<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:23:43)</FONT> <B>laktop:</B></FONT> i think one of the reasons companies tend to bully is because it's so easy to get away with it, because people get afraid<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:24:03)</FONT> <B>laktop:</B></FONT> so the post is a way of letting others know what's going on and that i'm particularly interested in being bullied<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:24:26)</FONT> <B>laktop:</B></FONT> let's just say it's not the first time i've chosen the louder of two options<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:24:31)</FONT> <B>icblenke:</B></FONT> and most of your audience will understand and respect that.<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:24:53)</FONT> <B>laktop:</B></FONT> rather, i'm *not* particularly interested in being bullied<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:25:08)</FONT> <B>icblenke:</B></FONT> got that ;)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:25:19)</FONT> <B>laktop:</B></FONT> yeah, all 3 people who read madstop.com :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:26:55)</FONT> <B>f3ew:</B></FONT> back<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:27:12)</FONT> <B>f3ew:</B></FONT> laktop send them to the list, and a link to the log<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:28:01)</FONT> <B>laktop:</B></FONT> ok<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:28:16)</FONT> <B>laktop:</B></FONT> i'll put the log up when i get back home, since my gaim instance at home will have the whole log<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:28:31)</FONT> <B>laktop:</B></FONT> do we want to continue the discussion now, or wait a bit?<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:28:34)</FONT> <B>f3ew:</B></FONT> cool<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:28:59)</FONT> <B>laktop:</B></FONT> i'll be around more today and all day tomorrow, but i leave saturday and will be at LISA all next week and traveling and such the week after<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:29:03)</FONT> <B>f3ew:</B></FONT> Well, I have to be up at 6:30, I have a talk at 10 am and it is now 3 am<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:29:09)</FONT> <B>laktop:</B></FONT> ouch!<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:29:16)</FONT> <B>laktop:</B></FONT> might as well just stay up :)<BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:30:45)</FONT> <B>laktop:</B></FONT> ok, i'll head back home, post the log, and then email the definitions to the list<BR>
+<FONT SIZE="2">(15:30:49)</FONT> <B>laktop left the room (quit: &quot;Leaving&quot;).</B><BR>
+<FONT COLOR="#A82F2F" sml="IRC"><FONT SIZE="2">(15:30:52)</FONT> <B>f3ew:</B></FONT> right, thanks<BR>
+
+*$Id: characterization.page 6 2006-07-02 20:05:14Z luke $*

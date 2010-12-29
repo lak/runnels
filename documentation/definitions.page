@@ -1,0 +1,51 @@
+---
+inMenu: true
+---
+
+Definitions of the different elements of a Runnels bus.
+
+* **event**
+
+    something that causes the generation of a message
+
+* **message**
+
+    formatted and parsable information carrying "packet"
+
+* **acceptor**
+
+    something that notes the occurence of an event and generates a suitable
+    message
+
+* **convertor**
+
+    stuff that takes input from the acceptor and converts it to the required
+    format
+
+* **router**
+
+    stuff that actually sends "packets" elsewhere
+
+* **consumer**
+
+    stuff that accepts messages from a router as a final destination and
+    processes them
+
+* **processor**
+
+    something that converts messages into action
+
+* **action**
+
+    whatever results from the receipt of a message, including null
+
+At a minimum, any runnel bus must have a producer and a router, and for
+anything to happen it must also have a consumer and a processor.  The action
+that a processor takes can include converting the message to another format
+like an SNMP trap and forwarding it along appropriately.
+
+Here is the flow of information:
+
+    event => acceptor => convertor => router => consumer => processor => action
+
+*$Id: definitions.page 6 2006-07-02 20:05:14Z luke $*

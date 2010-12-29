@@ -1,0 +1,105 @@
+attribute {
+    name "class";
+    desc "The class name"
+}
+
+attribute {
+    name "uuid";
+    desc "A generated, universally unique ID"
+}
+
+attribute {
+    name "source";
+    desc "The source of the message"
+}
+
+attribute {
+    name "time";
+    desc "The time the message was generated"
+}
+
+attribute {
+    name "tag";
+    desc "A simple keyword providing some semantic labelling"
+}
+
+attribute {
+    name "tag";
+    desc "A simple keyword providing some semantic labelling"
+}
+
+attribute {
+    name "log";
+    desc "The message of a log"
+}
+
+attribute {
+    name "facility";
+    desc "The facility of a log; select from a hard-coded list"
+}
+
+attribute {
+    name "priority";
+    desc "The message of a log; select from the list defined with syslog"
+}
+
+attribute {
+    name "name";
+    desc "The name of the message"
+}
+
+attribute {
+    name "reply";
+    desc "Whether a message requires a reply"
+}
+
+attribute {
+    name "replyto";
+    desc "The UUID that this message is replying to"
+}
+
+attribute {
+    name "value";
+    desc "The value of the message"
+}
+
+class { 
+    name "message";
+    desc "The base class for all Runnel messages";
+    must "class", "uuid", "sid", "time";
+    may "tag", "reply", "replyto"
+}
+
+class { 
+    name "log";
+    desc "A log format";
+    sup "message";
+    must "log";
+    may "tag"
+}
+
+class { 
+    name "syslog";
+    desc "A log format that maps directly to standard Unix syslog messages";
+    sup "log";
+    must "facility";
+    may "service", "priority"
+}
+
+class { 
+    name "metric";
+    desc "A simple metric format"
+    sup "message";
+    must "name", "value";
+}
+
+# This is stupid, it'll never work.  That means that in addition to the
+# Runnels system, I still need some sort of external system in place to
+# configure Nagios from the outside.  I think the real lesson here is that
+# this is useful for one-time messages that are almost always fire-and-forget,
+# and not so useful for other types of messages.
+class {
+    name "nagiosservice";
+    desc "A message to Nagios to monitor a service";
+    must "name"
+}

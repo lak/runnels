@@ -1,0 +1,57 @@
+Questions:
+    - Can we come up with any other useful messages to pass besides logs
+      and metrics?
+
+    - How do we handle in-message protocol aspects, like reply needing a class
+      name or reply-to needing to be a uuid?
+
+    - How should we handle synchronizing the schema across a bus?  I suppose
+      that all nodes should get the schema from the router, which reduces but
+      does not eliminate the problem.  At the least, this synchronization implies
+      that routers should know about other routers.
+
+    - Should one be able to subscribe to producers more than one hop away?
+
+To start:
+
+    - Create a runnels server that supports these operations:
+        - message operations
+            - send
+            - receive
+        - subscription operations
+            - subscribe
+                - initially, just support class and field subscriptions,
+                  with simple booleans and no substrings
+            - unsubscribe
+            - verify?
+        - schema querying
+            - there needs to be some kind of standard way for multiple runnel
+              servers to all know that they're speaking the same schema
+
+    - Create runnel formats
+        - logs
+        - metrics
+
+    - Create a runnel client in Puppet
+        - logs
+        - metrics
+
+    - Create runnel consumers
+        - logs, currently just go to flat files
+        - metrics, going to rrd files if possible, else just flat files
+
+    - Create a schema checking library
+        - Can anything in LDAP be reused?  I do not accept OIDs, but this
+          might be a case for RDF
+        - Rather than having class versions, can we just have class checksums?
+          Versions are somewhat meaningless in a distributed, worldwide network,
+          especially with the ability to easily create custom schemas.  Either
+          way, we need some way to verify that we have the same definition of
+          a class in a distributed way.  Would a centralized schema make sense?
+          Hmm.  Per-bus?  At the least, it seems that a whole bus _must_ agree
+          on its schema, so it seems silly to not provide for that facility.
+
+    - Create a schema format and parser
+        - we could just copy ldap here, but, well, that seems lamish
+        - yaml should be fine for the schema, shouldn't it?
+            - but we still need something to verify things

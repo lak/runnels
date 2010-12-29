@@ -1,0 +1,153 @@
+---
+inMenu: true
+---
+
+In order to get something started, I want to throw out a proposal for the
+message model.
+
+We've already established the following:
+
+* They will be plain text and human readable
+* They will consist entirely of attribute/value pairs; even the type will be
+  a normal attribute of the message
+* They will have global message IDs and global source IDs
+* They will not specify a destination and rather will rely on the runnel
+  bus to route them appropriately
+* They will include some type of semantic labelling beyond type, such as
+  tags, but we don't yet know what it will look like
+
+Something we don't specify as a requirement but that I think clearly separates
+Runnels from, say, [Microformats][] is that I definitely expect people to have
+custom and ad-hoc formats, and I expect that many of those custom formats will
+be modification to more standard formats.  Given this and all of the other
+requirements, I propose that we start with an LDAP-like schema system.
+
+Note that I specifically don't mean format or protocol or OIDs or naming or
+any of that.  I purely mean LDAP's mechanism of building object classes,
+subclasses, and so on.  No OIDs, no X.500 remnants, no ASN.1.
+
+Here is what I propose:
+
+Attributes
+==========
+Messages are fundamentally composed of attributes.  Attributes are types with
+a short descriptive name, one or more associated values, and an optional
+longer description.
+
+Classes
+=======
+Message classes are collections of mandatory and optional attributes, provided
+a name and denoted by the presence of the 'class' attribute.  All messages
+must specify at least one class.
+
+Message Class
+=============
+The base class for all messages is 'message', and all other classes must
+descend from this class.  It prescribes the mandatory attributes that all
+classes will have and provides a list of optional attributes.
+
+The required attributes included in the 'message' class are:
+
+class
+    The class name; all messages must specify at least one class, and each
+    class that the message is an instance of must be specified.
+
+sid
+    The source ID.  A globally unique identifier of the operating instance (or
+    'node', or 'host') from which the message originated.  The form that the
+    value of this field takes is not yet decided; it should be an amalgamation
+    of things like host name, MAC address, IP address, things like that.
+    Whether it should be related to hardware, software, or local policy is a
+    very good question.
+
+time
+    The time that the message was generated.  The format of the timestamp is
+    currently undefined; it will likely be in standard Unix time format, being
+    the number of seconds since "epoch", but it might need greater resolution
+    than that..
+
+uuid
+    A globally unique identifier for the specific message.  This should be a
+    combination of the sid and the some mechanism for providing unique message
+    IDs per server; a simple incrementer should be sufficient beyond the sid.
+
+The optional attributes included in the message class are:
+
+tag
+    A simple semantic label describing the content.  A given message might
+    have zero tags or 50; example tags are things like the operating system
+    name, the service level (e.g., production, development), application type,
+    or physical location.
+
+path
+    The path on the operating system to the specific object that generated the
+    event that resulted in the message.  This is largely meant to be used by
+    systems like [Puppet][] that build heirarchical configurations in which each
+    managed object is present somewhere in the heirarchy; this attribute can
+    be used to figure out exactly where in the heirarchy the source object is.
+
+Undecided attributes are checksum and sequence number.  The checksum should
+provide some sort of authenticity, so that a given host can sign a message and
+"prove" that is the source of the message, and the sequence number would allow
+higher-level services to guarantee that they did not miss any messages.
+
+Example
+=======
+Let's use this model to build a couple of small example formats.
+
+Log messages
+------------
+The log message class would be a subclass of the base 'class', obviously, and
+in addition to the base attributes it provides three additional required
+attributes:
+
+priority
+    The priority level of the log message, such as ``debug``, ``info``, or
+    ``crit``.
+
+program
+    The service that created the message.  This would be strings like ``sshd``
+    and ``named``.
+
+log
+    The text of the actual log message.
+
+Optional attributes:
+
+facility
+    The type of message.  Syslog has a fixed list of available facilities, and
+    they include things like ``kern`` and ``mail``.  This is an optional
+    attributes because not all messages fall within one of the defined
+    facilities.
+
+I am not recommending this actual textual format, but using an INI-style
+format, let's create an example message.  Here is an original syslog message::
+
+    Nov 28 11:50:48 culain puppet[31882]: Creating a new SSL key at /tmp/puppettesting/TestServerconfigdir0/ssl/private_keys/culain.madstop.com.pem
+
+And here is our converted message::
+
+    class: message
+    class: log
+    time: Nov 28 11:50:48
+    sid: culain.madstop.com
+    program: puppet
+    uuid: culain.madstop.com.31882
+    priority: info
+    log: Creating a new SSL key at /tmp/puppettesting/TestServerconfigdir0/ssl/private_keys/culain.madstop.com.pem
+    tag: ssl
+
+Conclusion
+==========
+There is much not handled in this proposal, such as what attribute types are
+supported (one assumes that currently only strings are supported), what the
+actual format would look like, and what the schema definition would look like,
+but I think it's a sufficient start.
+
+Comments are appreciated; please join the [conversation][].
+
+[microformats]: http://www.microformats.org
+[conversation]: http://config.sage.org
+[puppet]: /projects/puppet
+
+*$Id: model.page 6 2006-07-02 20:05:14Z luke $*

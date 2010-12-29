@@ -1,0 +1,61 @@
+---
+inMenu: true
+---
+
+I've been thinking about integrating system tools for a long time and it has
+always seemed like there should be some standard way of getting system tools
+to talk to each other.  In general, they exchange pretty simplistic
+information like logs, metrics, and alerts, and it should not be that hard to
+come up with a generic way for tools to exchange and consume this information.
+
+It's been a plan of mine to support the integration of [Puppet][] with tools like
+[RT][], [Nagios][], and any other system management tool.  My attendance at the
+[Web 2.0 Conference][] got me thinking about using [Microformats][] to encode the
+information but I'd have computers talking directly to each other with no
+browsers in the middle.
+
+In the course of thinking about this, spike on #puppet on irc.freenode.net
+brought up integration between Puppet and [Trac][].  I've posted a [log][] of that
+conversation, but the summary of it is that we need a [message bus][] for
+integrating the different system administration tools.  [Ian][] seems to have
+said it first: "a programmatic message bus is one of the big missing pieces in
+system administration".  Already there was discussion of SMTP, Jabber,
+Microformats, XML-RPC, event routers, and most of the other things that we've
+decided are now a part of Runnels.
+
+A few days later, I decided to see if I could spur some discussion on the
+[SAGE Config Mgmt List][] on this topic, and I seem to have [succeeded][].  The
+main conclusions from the conversation were that this would be great to have,
+it could not use SMTP, and maybe something like Jabber's protocol would work
+well.
+
+That discussion wore down after a few hours, and we took it back to IRC,
+where we [came up with the name][] "Runnels".
+
+A day or so later, it came up on IRC [again][], and we were able to pretty well
+characterize the problem, including coming up with a list of [definitions][].
+
+We discussed much else, but we only really agreed that our message format is a
+plain text collection of name/value pairs, the definitions already linked to,
+and the fact that we want to use subscriptions to get messages rather than
+having messages record a destination.
+
+We later had a discussion on [semantic tagging][].
+
+[puppet]: /projects/puppet
+[nagios]: http://www.nagios.org/
+[rt]: http://www.bestpractical.com/rt/ 
+[web 2.0 conference]: http://web2con.com/
+[microformats]: http://www.microformats.org
+[trac]: http://www.edgewall.com/trac/
+[log]: runnelsstart
+[message bus]: http://www.google.com/search?q=message+bus
+[ian]: http://ian.blenke.com/
+[sage config mgmt list]: http://config.sage.org
+[succeeded]: http://thread.gmane.org/gmane.comp.configuration-management.users/81
+[again]: characterization
+[came up with the name]: nameorigin
+[definitions]: definitions
+[semantic tagging]: semanticlog
+
+*$Id: history.page 6 2006-07-02 20:05:14Z luke $*

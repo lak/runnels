@@ -1,0 +1,80 @@
+---
+inMenu: false
+directoryName: Runnels
+---
+
+Runnels is a new project to create a networked message bus for passing
+information between system administration applications.  The basic idea is
+that different applications across the network would produce and/or consume
+small chunks of data on the message bus.   The [history][] of the project is also
+available.
+
+Key features of the bus are:
+
+## Routing and Publish/Subscribe
+
+Because producer nodes should not have to know or care who is interested in
+the data they are producing, runnel messages do not specify a destination.
+Instead, they merely forward their message on to a router, and that router
+is responsible for determining who should get the message.  There are two
+ways for the router to do this:
+
+* **Static Routes**
+
+    A router can specify static routes, such as "all messages of type ``log``
+    should get sent to log server A".
+
+* **Publish and Subscribe**
+
+    Routers will also support subscriptions to messages.  Because messages are
+    simply collections of attribute/value pairs, consumers will be able to
+    subscribe to values on attributes.  For instance, a log server could
+    subscribe to all messages of type ``log``, and both a trending server and
+    an alerting server could subscribe to all messages of type ``metric``.
+
+    We know that we will want to be able to subscribe to intersections, such
+    as "type == log and source == puppet", and we also assuredly want support
+    for regex-based matching of messages, but we have not established anything
+    beyond these desires.
+
+A key feature of Runnels, then, is that the routers contain the
+organizational metadata for the system, not the producers or consumers,
+meaning that producers cannot specify who is to receive their messages
+(beyond the first router) and consumers can only use subscriptions to
+determine whose messages they receive.  You will not have to tell your log
+producers to whom they should send log messages and you will not have to
+tell your trending servers whom to poll for data.
+
+## Standardized Message Formats
+
+Runnel messages will all be in a standardized format that supports types.
+Log messages will have a different schema than metric messages, for
+instance.  We have not yet decided on this format, but there is a
+[proposed model][].
+
+## Standard, Modular Architecture
+
+We have established a standard set of [definitions][] of the different
+components in a Runnels bus, with the idea that each of these components
+will speak through standard interfaces whereever possible, such that there
+can be multiple implementations of any one component, and existing
+applications should be able to write connections to the bus in whatever
+language they happen to already be written in.
+  
+## Builtin Security
+
+We require that the bus start with support for security in the form of SSL
+certificates.  Producers and consumers will need trusted certificates to
+join the bus, and messages will be signed by their producers with those
+certificates.  This will at least provide us with authentication and a means
+of guaranteeing message authenticity, although it will not yet provide
+authorization facilities.
+
+We've got a simple list of [example][] producers and consumers for a runnels bus.
+
+[history]: history.html
+[definitions]: definitions.html
+[example]: examples.html
+[proposed model]: model.html
+
+*$Id: index.page 6 2006-07-02 20:05:14Z luke $*

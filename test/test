@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+
+#------------------------------------------------------------
+# run any or all test suites
+
+basedir = File.dirname(__FILE__)
+
+$:.unshift basedir
+$:.unshift '#{basedir}/lib'
+
+require 'testrunnels.rb'
+require 'getoptlong'
+
+	#[ "--size",	"-s",			GetoptLong::REQUIRED_ARGUMENT ],
+result = GetoptLong.new(
+	[ "--debug",	"-d",			GetoptLong::NO_ARGUMENT ],
+	[ "--help",		"-h",			GetoptLong::NO_ARGUMENT ]
+)
+
+usage = "USAGE: %s [--help] <testsuite> <testsuite> .." % $0
+
+result.each { |opt,arg|
+	case opt
+		when "--debug"
+            # nothing
+		when "--help"
+			puts usage
+			exit
+		else
+			raise "Invalid option '#{opt}'"
+	end
+}
+
+suites = nil
+
+if ARGV.length != 0
+    suites = ARGV
+else
+    suites = RunnelsTestSuite.list
+end
+
+suites.each { |suite|
+    RunnelsTestSuite.new(suite)
+}
+
+# $Id: test 1 2005-12-04 20:07:03Z luke $
